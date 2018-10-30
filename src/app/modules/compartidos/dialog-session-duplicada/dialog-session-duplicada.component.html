@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>
+  <fa-icon [icon]="['fas','clone']" [fixedWidth]="true" size="xs"></fa-icon>
+  Sesión duplicada para el usuario: '{{data}}'
+</h1>
+<div mat-dialog-content>
+  <p>
+    Existe otra sesión abierta en el sistema, esto se debe a que ocurrió un error al momento de cerrar su anterior sesión.
+    Le recomendamos que cierre su antigua sesión para que pueda acceder al sistema.
+  </p>
+  <hr>
+  <div class="text-center">
+    <ng-container [ngSwitch]="inLogout">
+      <div *ngSwitchDefault>
+        <p>¿Desea cerrar la antigua sesión?</p>
+        <button mat-button (click)="doLogout()" cdkFocusInitial>Cerrar Sesión</button>
+      </div>
+      <div *ngSwitchCase="'1'">
+        <mat-spinner [diameter]="20" color="warn"></mat-spinner>
+        <small>Cerrando sesión...</small>
+      </div>
+      <div *ngSwitchCase="'2'">
+        <small class="text-success">Se ha cerrado la sesión!</small>
+        <p class="text-muted">Las bitacoras han sido actualizadas.</p>
+      </div>
+      <div *ngSwitchCase="'error'">
+        <small class="text-danger">
+          Ha ocurrido un error al cerrar la sesión, por favor verífica tu conexión a internet.
+        </small>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="inLogout !== '2'" mat-dialog-close>Iniciar Sesión!</button>
+</div>

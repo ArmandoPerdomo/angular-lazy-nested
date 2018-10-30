@@ -1,0 +1,32 @@
+.modal{
+    display: block !important;
+}
+.modal-dialog{
+      overflow-y: initial !important
+}
+.modal-body{
+        max-height: calc(200vh - 300px);
+        overflow-y: auto;
+}
+
+.modal-content{
+    width: 1125px !important;
+    margin-left: -310px !important;
+    height: 1071px !important;
+}
+
+.left{
+    left: 35px;
+}
+
+.top{
+    margin-top: 25px !important;
+}
+
+.componenteGeneral{
+    margin-top: -40px !important;
+}
+
+.padding{
+    padding: 5px !important;
+  }

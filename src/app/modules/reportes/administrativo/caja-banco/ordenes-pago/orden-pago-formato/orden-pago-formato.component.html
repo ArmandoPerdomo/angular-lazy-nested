@@ -1,0 +1,155 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div style="padding: 20px 0px 0px 0px;">
+                <form  [formGroup]="Detalle">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>Pago digital</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" placeholder="Enviar a: " formControlName="enviar" [(ngModel)]='env' >
+                                <option value='PDF'>Archivo PDF</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-light" (click)="Aceptar()">
+                            <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+                            <button type="button" class="btn btn-light" (click)="goBack()">
+                            <i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+                        </div>    
+                    </div>
+                </form>
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Diseño del Encabezado-->
+                        <div class="row" id="row1">
+                        
+                            <div class="form-group col-md-3">
+                            <img class="logi" src="assets\img\logoconstrutodo.png">
+                            </div>
+                        
+                            <div class="form-group col-md-5">
+                            <br><br><br>
+                            <h5 style="text-align: justify">
+                                Av. Los Pinos, entre calle Pomagas y los Mango, Casa Nro. 35
+                                Urb. La Florida Norte, Zona Postal 1050 Ofi. +58212731.2087
+                            </h5>
+                            </div>
+                            
+                            <div class="form-group col-md-4">
+                                <p> <br></p>
+                                <table class="table table-sm table-borderless">
+                                <tr>
+                                    <td class="bold"> Orden de Pago:</td>
+                                    <td style="text-align: right"> {{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Numero}}</td>
+
+                                </tr>
+                                <tr>
+                                    <td class="bold">Fecha de Emisión:</td>
+                                    <td style="text-align: right" > {{ detalleReport?.RepFormatoPago2Result?.Documeto[0].FechaEmis | dConst}}</td>
+                                </tr>
+                                <tr>
+                                <td class="bold">Fecha de Pago:</td>
+                                        <td style="text-align: right" > {{ detalleReport?.RepFormatoPago2Result?.Documeto[0].FechaPago | dConst}} </td>
+                                </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- informacion del cliente-->
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-sm table-borderless" style="margin: 10px" >
+                                    
+                                    <tr>
+                                        <td>Beneficiario:</td>
+                                        <td> {{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Beneficiario}} </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Forma de Pago:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].FormaPago}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Teléfonos:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Telefonos}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Status:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Status}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuenta:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Cuenta}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Banco:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Banco}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nro. Dcto:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].NroCheque}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Impuesto:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Impuesto | mConst}}</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cta. Ingreso:</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].CtaIngreso}} </td>
+                                        <td>Moneda</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Moneda}}</td>
+                                    
+                                        <td>I.V.A</td>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Iva | mConst}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>  
+
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="table table-sm table-borderless" style="margin: 10px" >
+                                    <tr>
+                                        <td>Descripción:</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].Descripcion}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>  
+                        <!-- Tabla de Observaciones-->
+                    
+
+                        <!-- Tabla de montos-->
+                        <div class="pull-right" style="margin: 20px;">
+                            <div class="row " id="tab2">
+                                <table class="table table-sm table-borderless" style="margin: 10px">
+                                    <tr>                              
+                                        <td class="bold">Monto Neto: %</td>
+                                        <td class="monto"> {{ detalleReport?.RepFormatoPago2Result?.Documeto[0].MontoNeto | mConst}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold">I.S.L.R.:</td>
+                                        <td class="monto"> {{ detalleReport?.RepFormatoPago2Result?.Documeto[0].ISLR | mConst}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bold">Monto a Pagar: %</td>
+                                        <td class="monto">{{ detalleReport?.RepFormatoPago2Result?.Documeto[0].MontoaPagar | mConst}} </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+

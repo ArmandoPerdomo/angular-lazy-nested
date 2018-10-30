@@ -1,0 +1,40 @@
+table, tr, th, td{
+  border: solid 1px darkgray;
+  border-collapse: collapse;
+}
+th{
+  background: #d9d9d9;
+}
+table{
+  margin-left: 40px;
+  margin-right: 80px;
+}
+td{
+  width: 400px;
+}
+.titulo{
+  width: 200px;
+  border: none;
+  padding-left: 0px !important;
+}
+.linea{
+  width: 2000px;
+  border: none;
+  vertical-align: bottom;
+  color: gray;
+}
+.principal{
+  border: none;
+  margin-left: 15px;
+  margin-right: 0px;
+}
+.ancho{
+  width: 1500px;
+}
+.medio{
+  width: 700px;
+}
+.fino{
+  width: 100px;
+}
+

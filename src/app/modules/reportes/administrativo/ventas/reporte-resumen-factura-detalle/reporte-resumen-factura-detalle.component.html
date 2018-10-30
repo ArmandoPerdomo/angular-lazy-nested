@@ -1,0 +1,250 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="form-group col-md-8">
+          <h3> {{titulo}}</h3>
+        </div>
+        <div class="form-group col-md-2">
+            <select class="form-control" placeholder="Enviar a: ">
+              <option>Archivo PDF</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <button type="button" class="btn btn-light" (click)="createPdf(detalleReport)"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+            <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <!-- Información del cliente -->
+          <div class="row">
+              <table>
+                <tr>
+                  <td><b>Cliente:</b></td>
+                  <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Cliente}}</td>
+                </tr>
+                <tr>
+                  <td><b>Vendedor:</b></td>
+                  <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Vendedor}}</td>
+                </tr>
+                <tr>
+                  <td><b>Transporte:</b></td>
+                  <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Trasporte}}</td> 
+                </tr>
+            </table>
+          </div>
+          <hr>
+
+          <!-- Informacion de la factura -->
+          <div class="row">
+            <table>
+              <tr>
+                <td class="bold">Factura:</td>
+                <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].FacturaNum}}</td>
+                <td  class="bold">Fecha Emisión:</td>
+                <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[0].FechaEmision | dConst}}</td>
+                <td class="bold">Fecha Vencimiento:</td>
+                <td >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[0].FechaVencimiento | dConst}}</td>
+              </tr>
+            </table>
+          </div>
+          <table class="table-striped table-hover" id=tabla_doc>
+              <thead>
+                <tr>
+                  <th style="width:700px; text-align: center; ">Artículo</th>
+                  <th style="width:200px; text-align: center; ">Almacén</th>
+                  <th style="width:200px; text-align: right; ">Cant.</th>
+                  <th style="width:200px; text-align: center; ">Unidad</th>
+                  <th style="width:200px; text-align: right;">Precio</th>
+                  <th style="width:200px; text-align: right;">Neto</th>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let detaDoc of detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[0].DetalleDocumentos">
+                  <td style="width:700px;">{{ detaDoc.Articulo}}</td>
+                  <td style="width:200px;  text-align: center; ">{{ detaDoc.Almacen}}</td>
+                  <td class="right" style="width:200px">{{ detaDoc.Cantidad |mConst}}</td>
+                  <td style="width:200px ;text-align: center; ">{{ detaDoc.Unidad}}</td>
+                  <td class="right" style="width:200px">{{ detaDoc.Precio |mConst }}</td>
+                  <td class="right" style="width:200px">{{detaDoc.Neto |mConst}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th style="width:700px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px" class="right">Sub Total:</th>
+                  <th style="width:200px" class="right">{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[0].Sub_Total| mConst}}</th>
+                </tr>   
+                <tr>
+                  <th style="width:700px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px" class="right">Iva:</th>
+                  <th style="width:200px" class="right">{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[0].Iva| mConst}}</th>
+                </tr> 
+                <tr>
+                  <th style="width:700px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px"></th>
+                  <th style="width:200px" class="right">Total:</th>
+                  <th style="width:200px" class="right">{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[0].Total| mConst}}</th>
+                </tr>  
+              </tfoot>
+          </table>    
+          <br><br>
+
+          <!-- Información del Despacho -->
+          <div  *ngIf="documentoDespacho">
+              <div class="row">
+                <table>
+                  <tr>
+                    <td  class="bold">Despacho:</td>
+                    <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[1].NumeroDocumento}}</td>
+                    <td  class="bold">Fecha Emisión:</td>
+                    <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[1].FechaEmision | dConst}}</td>
+                    <td  class="bold">Fecha Vencimiento:</td>
+                    <td>{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[1].FechaVencimiento | dConst}}</td>
+                  </tr>
+                </table>
+              </div>
+              <table class="table-striped table-hover" id=tabla_doc>
+                <thead>
+                  <tr>
+                    <th style="width:700px; text-align: center; ">Artículo</th>
+                    <th style="width:200px; text-align: center; ">Almacén</th>
+                    <th style="width:200px; text-align: right; ">Cant.</th>
+                    <th style="width:200px; text-align: center; ">Unidad</th>
+                    <th style="width:200px; text-align: right;">Precio</th>
+                    <th style="width:200px; text-align: right;">Neto</th>
+                  </tr>
+                </thead>
+                <tbody> 
+                  <tr *ngFor="let detaDoc of detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[1].DetalleDocumentos">
+                    <td style="width:700px">{{ detaDoc.Articulo}}</td>
+                    <td style="width:200px;  text-align: center; ">{{ detaDoc.Almacen}}</td>
+                    <td class="right"  style="width:200px">{{ detaDoc.Cantidad | mConst}}</td>
+                    <td style="width:200px;  text-align: center; ">{{ detaDoc.Unidad}}</td>
+                    <td class="right" style="width:200px">{{ detaDoc.Precio| mConst}}</td>
+                    <td class="right" style="width:200px">{{ detaDoc.Neto| mConst}}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <tr>
+                    <th style="width:700px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px" class="right">Sub Total:</th>
+                    <th style="width:200px" class="right">{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[1].Sub_Total| mConst}}</th>
+                  </tr>   
+                  <tr>
+                    <th style="width:700px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px" class="right">Iva:</th>
+                    <th style="width:200px" class="right">{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[1].Iva| mConst}}</th>
+                  </tr> 
+                  <tr>
+                    <th style="width:700px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px"></th>
+                    <th style="width:200px" class="right">Total:</th>
+                    <th style="width:200px" class="right">{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].Documentos[1].Total| mConst}}</th>
+                  </tr>
+                </tfoot>
+               
+              </table>  
+          </div>
+          <br><br>
+
+          <!-- Resumen cantidad-->
+          <div class="row">
+            <table>
+              <tr>
+                <td class="bold">Resumen Cantidad</td>
+              </tr>
+            </table>
+          </div>
+          <table class="table-striped table-hover" id=tabla_doc>
+            <thead>
+              <tr>
+                <th style="width:700px; ">Artículo</th>
+                <th style="width:200px; text-align: center; ">Unidad</th>
+                <th class="right" style="width:200px;">Facturado</th>
+                <th class="right" style="width:200px;">Devuelto</th>
+                <th class="right" style="width:200px;">Despacho</th>
+                <th class="right" style="width:200px;">Por Despa.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let resCant of detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCantida">
+                <td style="width:700px">{{ resCant.Articulo}}</td>
+                <td style="width:200px; text-align: center;">{{ resCant.Unidad}}</td>
+                <td class="right" style="width:200px">{{ resCant.Facturado| mConst}}</td>
+                <td class="right" style="width:200px">{{ resCant.Devuelto| mConst}}</td>
+                <td class="right" style="width:200px">{{ resCant.Despachado| mConst}}</td>
+                <td class="right" style="width:200px">{{ resCant.Pordespachar| mConst}}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                  <th style="width:700px"></th>
+                  <th style="width:200px"></th>
+                  <th class="right" style="width:200px">{{ numerito| mConst}}</th>
+                  <th class="right" style="width:200px">{{ numerito2| mConst}}</th>
+                  <th class="right" style="width:200px">{{ numerito3| mConst}}</th>
+                  <th class="right" style="width:200px">{{ numerito4| mConst}}</th>
+                </tr>
+            </tfoot>
+          </table> 
+          <br><br>
+
+          <!-- Recumen CxC -->
+          <table id=tabla_doc>
+            <tr>
+              <th  colspan="2" style="width:500px">Resumen CxC</th>  
+            </tr>
+            <tr>
+              <td>Facturas</td>
+              <td class="right" >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCxc.Facturas| mConst}}</td>
+            </tr>
+            <tr>
+              <td>Devoluciones</td>
+              <td class="right" >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCxc.Devoluciones| mConst}}</td>
+            </tr>
+            <tr>
+              <td>Nota de Crédito</td>
+              <td class="right" >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCxc.NCR| mConst}}</td>
+            </tr>
+            <tr>
+              <td>Retención ISLR</td>
+              <td class="right" >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCxc.RetencionISLA| mConst}}</td>
+            </tr>
+            <tr>
+              <td>Retención IVA</td>
+              <td class="right" >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCxc.RetencionIVA| mConst}}</td>
+            </tr>
+            <tr>
+              <td>Cobro en efectivo</td>
+              <td class="right" >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCxc.CobroEnEfectivo| mConst}}</td>
+            </tr>
+            <tr>
+              <td>Saldo</td>
+              <td class="right" >{{ detalleReport?.ReporteFacturaResumenCompletoResult?.ResumenFacturas[0].ResumenCxc.Saldo| mConst}}</td>
+            </tr>
+          </table>  
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>
+    <fa-icon [icon]="['fas','hourglass-end']" [fixedWidth]="true" size="sm"></fa-icon>
+  Su sesión ha caducado
+</h1>
+<div mat-dialog-content>
+  <p *ngIf="inLogout !== 'error'">El tiempo de sesión ha caducado, le recomendamos que vuelva a iniciar sesión</p>
+  <hr>
+
+  <ng-container [ngSwitch]="inLogout">
+    <div class="text-center" *ngSwitchCase="'1'">
+      <mat-spinner [diameter]="20" color="warn"></mat-spinner>
+      <small>Cerrando sesión...</small>
+    </div>
+    <div class="text-center" *ngSwitchCase="'2'">
+      <small class="text-success">Se ha cerrado la sesión!</small>
+    </div>
+    <div class="text-center" *ngSwitchCase="'error'">
+      <small class="text-danger">
+        Ha ocurrido un error al cerrar la sesión, esto se debe a un error de conexión o un problema en la aplicación.
+        Puedes intentar iniciando sesión de nuevo.
+      </small>
+    </div>
+  </ng-container>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button [disabled]="inLogout === '1'" mat-dialog-close cdkFocusInitial [routerLink]="['/login']">Iniciar Sesión!</button>
+</div>

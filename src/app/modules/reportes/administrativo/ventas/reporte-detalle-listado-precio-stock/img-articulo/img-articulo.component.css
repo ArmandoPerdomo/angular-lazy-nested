@@ -1,0 +1,13 @@
+.center{
+    text-align: center !important;
+}
+ngx-image-viewer {
+    min-height: 400px;
+    width: 100%;
+}
+mat-spinner{
+    margin: 35px 47%;
+}
+.img-container{
+    background-color:  white !important;
+}

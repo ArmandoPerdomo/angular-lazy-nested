@@ -1,0 +1,238 @@
+<div class="container figures-container">
+  <div class="row">
+    <div class="col">
+      <figure>
+          <div class="avatar"></div>
+          <figcaption>
+            <a>
+              {{userLogged.empresa.nombre}}
+            </a>
+          </figcaption>
+      </figure>
+      <figure>
+          <div class="avatar"></div>
+          <figcaption>
+            <a [matMenuTriggerFor]="userMenu">
+              {{fullname}}
+              <fa-icon [icon]="['fas','angle-down']" [fixedWidth]="true" size="lg"></fa-icon>
+            </a>
+            <!-- mat-menu userMenu => sub -->
+            <mat-menu #userMenu="matMenu" xPosition="after" yPosition="below">
+              <button mat-menu-item>Actualizar datos</button>
+              <button mat-menu-item (click)="doLogout()">Cerrar sesión</button>
+            </mat-menu>
+          </figcaption>
+      </figure>
+    </div>
+  </div>    
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/app/inicio']">
+          <fa-icon [icon]="['fas','cube']" [fixedWidth]="true" size="lg"></fa-icon>
+          Inicio
+        </a>
+      </mat-nav-list>
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+
+      <mat-nav-list>
+        <ng-container *ngFor="let item of rederedNavMenu">
+          <ng-container *ngIf="item.children">
+            <a mat-list-item [matMenuTriggerFor]="menu.childMenu">
+              <fa-icon *ngIf="item.iconName" [icon]="['fas', item.iconName]" [fixedWidth]="true" size="lg"></fa-icon>
+              {{item.displayName}}
+            </a>
+            <app-nav-item #menu [items]="item.children" ></app-nav-item>
+          </ng-container>
+
+          <ng-container *ngIf="!item.children">
+            <a mat-list-item [routerLink]="item.route">
+              <fa-icon *ngIf="item.iconName" [icon]="['fas',item.iconName]" [fixedWidth]="true" size="lg"></fa-icon>
+              {{item.displayName}}
+            </a>
+          </ng-container>
+        </ng-container>
+      </mat-nav-list>
+
+
+      <!-- Menú Gestión -->
+      <mat-nav-list *ngIf="menuType === 'gestion'">
+        <a mat-list-item [matMenuTriggerFor]="administrativo">
+          <fa-icon [icon]="['fas','hand-holding-usd']" [fixedWidth]="true" size="lg"></fa-icon>
+          Gestión administrativa
+        </a>
+
+        <!-- Childrens lvl 1 -->
+        <!-- mat-menu administrativo => sub -->
+        <mat-menu #administrativo="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [matMenuTriggerFor]="ventas">Ventas</button>
+        </mat-menu>
+
+        <!-- Childrens lvl 2 -->
+        <mat-menu #ventas="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/app/gestion/ventas/cotizacion']">Cotización</button>
+          <button mat-menu-item [routerLink]="['/app/gestion/ventas/pedido']">Pedido</button>
+          <button mat-menu-item [routerLink]="['/app/gestion/ventas/cobro']" disabled>Cobro</button>
+          <button mat-menu-item [routerLink]="['/app/gestion/ventas/gestion-clientes']" disabled>Gestión Clientes</button>
+          <button mat-menu-item [routerLink]="['/app/gestion/ventas/devolucion']">Devolución</button>
+          <button mat-menu-item [routerLink]="['/app/gestion/ventas/plantilla-de-venta']">Plantilla de venta</button>
+        </mat-menu>
+      </mat-nav-list>
+
+      <!-- Menú Reportes -->
+      <mat-nav-list *ngIf="menuType === 'reportes'">
+        <a mat-list-item [matMenuTriggerFor]="administrativo">
+          <fa-icon [icon]="['fas','calculator']" [fixedWidth]="true" size="lg"></fa-icon>
+          Administrativos
+        </a>
+        <a mat-list-item [matMenuTriggerFor]="contable">
+          <fa-icon [icon]="['fas','university']" [fixedWidth]="true" size="lg"></fa-icon>
+          Contables
+        </a>
+        <a mat-list-item [matMenuTriggerFor]="nomina">
+          <fa-icon [icon]="['fas','user']" [fixedWidth]="true" size="lg"></fa-icon>
+          Nómina
+        </a>
+        <a mat-list-item [matMenuTriggerFor]="gerencial">
+          <fa-icon [icon]="['fas','chart-line']" [fixedWidth]="true" size="lg"></fa-icon>
+          Gerencial
+        </a>
+  
+        <!-- Childrens lvl 1 -->
+        <!-- mat-menu administrativo => sub -->
+        <mat-menu #administrativo="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [matMenuTriggerFor]="ventas">Ventas</button>
+          <button mat-menu-item [matMenuTriggerFor]="compras">Compras</button>
+          <button mat-menu-item [matMenuTriggerFor]="inventario">Inventario</button>
+          <button mat-menu-item [matMenuTriggerFor]="cajaBanco">Caja banco</button>
+        </mat-menu>
+
+        <!-- mat-menu contables => sub -->
+        <mat-menu #contable="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [matMenuTriggerFor]="eeff">EEFF</button>
+        </mat-menu>
+
+        <!-- mat-menu nomina => sub -->
+        <mat-menu #nomina="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/app/reportes/nomina/recibo-nomina']">Recibo nómina</button>
+          <button mat-menu-item [matMenuTriggerFor]="estadosDeCuenta">Estados de cuenta</button>
+        </mat-menu>
+
+        <!-- mat-menu gerencial => sub -->
+        <mat-menu #gerencial="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [matMenuTriggerFor]="gerencialAdministrativo">Administrativo</button>
+          <button mat-menu-item [matMenuTriggerFor]="comercial">Comercial</button>
+          <button mat-menu-item  [routerLink]="['/app/reportes/gerenciales/auditoria']">Reporte de auditoría</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/gerenciales/todos-gerencial']">Todos gerencial</button>
+        </mat-menu>
+  
+        <!-- Childrens lvl 2  -->
+
+        <!-- Administrativo -->
+        <!-- mat-menu ventas => sub -->
+        <mat-menu #ventas="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/listado-precio-stock']">Lista de precios stock</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/cxc']">CxC por cliente</button>
+          <button mat-menu-item [matMenuTriggerFor]="factura">Facturas</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/cotizaciones-digital']">Cotización digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/devoluciones-digital']">Devolución digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/pedido-digital']">Pedido digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/nota-entrega-digital']">Nota de entrega digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/nota-despacho-digital']">Nota de despacho digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/plantilla-digital']">Plantilla de venta digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/cobro-digital']">Cobro digital</button>
+        </mat-menu>
+        <!-- mat-menu compras => sub -->
+        <mat-menu #compras="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/cxp']">CxP por proveedor</button>
+          <button mat-menu-item [matMenuTriggerFor]="pagos">Pagos</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/ordenes-de-compra']">Órden de compra digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/notas-de-recepcion']">Nota de recepción digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/factura-de-compra']">Factura de compra</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/devoluciones-al-proveedor']">Devolución al proveedor</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/cotizaciones-al-proveedor']">Cotización al proveedor</button>
+        </mat-menu>
+        <!-- mat-menu inventario => sub -->
+        <mat-menu #inventario="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/inventario/lista-stock-disponible']">Stock disponible</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/inventario/compras-vs-ventas']">Compras vs. ventas</button>
+        </mat-menu>
+        <!-- mat-menu caja banco => sub -->
+        <mat-menu #cajaBanco="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/caja-banco/flujo-caja']">Disponibilidad flujo de caja</button>
+          <button mat-menu-item [matMenuTriggerFor]="movimientosDeBanco">Movimientos de banco</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/caja-banco/ordenes-pago']">Formato órden de pago</button>
+        </mat-menu>
+
+        <!--Contables-->
+        <!-- mat-menu eeff => sub -->
+        <mat-menu #eeff="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [matMenuTriggerFor]="balance">Balance</button>
+          <button mat-menu-item [matMenuTriggerFor]="gananciasYPerdidas">Ganancias y pérdidas</button>
+        </mat-menu>
+
+        <!--Nómina-->
+        <!-- mat-menu estados de cuenta => sub -->
+        <mat-menu #estadosDeCuenta="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/app/reportes/nomina/estado-cuenta/prestaciones']"> Estado de cuentas prestaciones</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/nomina/estado-cuenta/prestamo']">Estado de cuentas préstamos</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/nomina/estado-cuenta/utilidades']">Estado de cuentas utilidades</button>
+        </mat-menu>
+
+        <!--Gerencial-->
+        <!-- mat-menu administrativo => sub -->
+        <mat-menu #gerencialAdministrativo="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/gerenciales/administrativos/tesoreria']">Reporte de tesorería</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/gerenciales/administrativos/todos']">Todos administrativo</button>
+        </mat-menu>
+        <!-- mat-menu comercial => sub -->
+        <mat-menu #comercial="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/gerenciales/comercial/ventas']">Reportes de ventas</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/gerenciales/comercial/compras']">Reportes de compras</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/gerenciales/comercial/todos']">Todos comercial</button>
+        </mat-menu>
+        
+  
+        <!-- Childrens lvl 3 -->
+
+        <!--Administrativo-->
+        <!-- mat-menu factura => sub -->
+        <mat-menu #factura="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/factura-digital']">Factura digital</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/ventas/resumen-factura']">Resumen factura</button>
+        </mat-menu>
+        <!-- mat-menu inventario => sub -->
+        <mat-menu #pagos="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/pagos-por-numero']">Pagos por número</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/compras/pagos-digital']">Pago digital</button>
+        </mat-menu>
+        <!-- mat-menu inventario => sub -->
+        <mat-menu #movimientosDeBanco="matMenu">
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/caja-banco/movimientos-banco-numero']">Movimientos de banco por número</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/administrativos/caja-banco/movimientos-banco-formato-digital']">Movimientos de banco por formato digital</button>
+        </mat-menu>
+
+        <!--Contables-->
+        <!-- mat-menu balance => sub -->
+        <mat-menu #balance="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/app/reportes/contables/balance/comprobacion']">Balance de comprobación</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/contables/balance/general']">Balance general</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/contables/balance/general-mensual']">Balance general mensual</button>
+        </mat-menu>
+        <!-- mat-menu ganancias y perdidas => sub -->
+        <mat-menu #gananciasYPerdidas="matMenu" xPosition="after" yPosition="below">
+          <button mat-menu-item [routerLink]="['/app/reportes/contables/ganancia-perdida/ganancia-perdida']">Ganancias y pérdidas</button>
+          <button mat-menu-item [routerLink]="['/app/reportes/contables/ganancia-perdida/ganancia-perdida-mensual']">Ganancias y pérdidas por meses</button>
+        </mat-menu>
+      </mat-nav-list>
+    </div>
+  </div>
+</div>

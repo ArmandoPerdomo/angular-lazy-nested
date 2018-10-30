@@ -1,0 +1,142 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <form class="form-horizontal" [formGroup]="ListadoPDFEdoPrestaciones">
+                <div style="padding: 20px 0px 0px 0px;">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>Control de prestaciones</h3>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" placeholder="Enviar a: ">
+                                <option value="PDF">Archivo PDF</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-light" (click)="crearPdf(detalleReport,detalleReportin)"><i class="fa fa-check" id="aceptar"
+                                aria-hidden="true"></i>Aceptar</button>
+                            <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar"
+                                aria-hidden="true"></i>Volver</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card">
+                    <div class="card-body">
+                        <!-- informacion del Trabajador-->
+                        <table>
+                            <tr>
+                                <td style="width: 300px">
+                                    <app-combo-contrutodo style="width: 250px" [servicio]="trabajadoresCallback" [tipoLista]=2
+                                    [formControlName]="'trabajadorD'" [selectedItemIds]="TrabajadorD" (codigo)="changeTrabajadorCodigo($event)">
+                                    </app-combo-contrutodo>
+                                </td>
+                                <td id="boldy" style="width: 10px; padding: 0px 20px"><b>Cédula: </b></td>
+                                <td style="width: 150px; padding: 0px 20px">{{itemPres.CI}}</td>
+                                <td id="boldy" style="width: 160px; padding: 0px 20px"><b>Fecha Ingreso: </b></td>
+                                <td style="width: 100px; padding: 0px 20px">{{itemPres.Fecha_Ingreso | dConst }}</td>
+                            </tr>
+                        </table>
+
+                        <br>
+                        <!-- Acumulados inciales -->
+                        <table  style="margin: 10px">
+                            <td id=corto><label>Acumulados Iniciales:</label></td>
+                            <td id=vacioPeq></td>
+                            <div class="tabla">
+                                <table id=tabla_doc >
+                                <tr>
+                                    <th>N° de días</th>
+                                    <th>Prest. Sociales</th>
+                                    <th>Días Adicionales</th>
+                                    <th>Anticipos Prest.</th>
+                                    <th>Intereses Prest.</th>
+                                    <th>Intereses Canc.</th>
+                                </tr>
+                                <tr>
+                                    <td>{{itemPres.Acumulados_Iniciales.Num_Dia | mConst}}</td>
+                                    <td>{{itemPres.Acumulados_Iniciales.Prest_Sociales | mConst}}</td>
+                                    <td>{{itemPres.Acumulados_Iniciales.Dias_Adic | mConst}}</td>
+                                    <td>{{itemPres.Acumulados_Iniciales.Anticipos_Prest | mConst}}</td>
+                                    <td>{{itemPres.Acumulados_Iniciales.Intereses_Prest | mConst}}</td>
+                                    <td>{{itemPres.Acumulados_Iniciales.Intereses_Canc | mConst}}</td>
+                                </tr>
+                                </table>
+                            </div>
+                        </table>
+                        <br>
+                        <div class="tabla" style="margin: 15px">
+                            <table class="table-striped table-hover table-responsive " id="tabla_doc" >
+                            <thead>
+                                <tr>
+                                <th class="fecha">Fecha</th>
+                                <th class="salario">Salario</th>
+                                <th class="diario">Diario Básico</th>
+                                <th class="diario">Alic Utilidad</th>
+                                <th class="bono">Alic Bono</th>
+                                <th class="integral">Integral Diario</th>
+                                <th class="diasa">Días Abon.</th>
+                                <th class="montoa">Monto Abono</th>
+                                <th class="diasad">Días Adic.</th>
+                                <th class="montod">Monto Días Adicionales.</th>
+                                <th class="antic">Anticipos de Prest</th>
+                                <th class="diasa">Acumulado Prestaciones</th>
+                                <th class="capital">Capital Intereses</th>
+                                <th class="tasa">Tasa Intereses</th>
+                                <th class="montoi">Monto Intereses</th>
+                                <th class="intereses">Intereses Cancelados</th>
+                                <th class="acumin">Acumulado Interes</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="3" style="text-align: right">Total por Trabajador:</th>
+                                    <th class="bono"></th>
+                                    <th class="integral"></th>
+                                    <th class="integral"></th>
+                                    <th class="diasa">{{itemPres.Dias_abon_total | mConst}}</th>
+                                    <th class="montoa">{{itemPres.Monto_abon_total | mConst}}</th>
+                                    <th class="diasad">{{itemPres.Dias_adic_total | mConst}} </th>
+                                    <th class="montod">{{itemPres.Monto_dias_adicionales_total | mConst}}</th>
+                                    <th class="antic"></th>
+                                    <th class="diasa"></th>
+                                    <th class="capital"></th>
+                                    <th class="tasa"></th>
+                                    <th class="montoi">{{itemPres.Monto_interes_total | mConst}}</th>
+                                    <th class="intereses"></th>
+                                    <th class="acumin">{{itemPres.Acumulado_interese_total | mConst}}</th>
+                                </tr>
+                            </tfoot>
+
+                            <tbody>
+                                <tr *ngFor="let regis of itemPres.Registro">
+                                <td>{{regis.Fecha}}</td>
+                                <td>{{regis.Salario | mConst}}</td>
+                                <td>{{regis.Diario_Basico | mConst}}</td>
+                                <td>{{regis.Alic_Utilidad | mConst}}</td>
+                                <td>{{regis.Alic_Abono | mConst}}</td>
+                                <td>{{regis.Integral_Diario | mConst}}</td>
+                                <td>{{regis.Dias_Abono | mConst}}</td>
+                                <td>{{regis.Monto_Abono | mConst}}</td>
+                                <td>{{regis.Dias_Adic | mConst}}</td>
+                                <td>{{regis.Monto_Dias_Adic | mConst}}</td>
+                                <td>{{regis.Anticipos_Prest_Soc | mConst}}</td>
+                                <td>{{regis.Acumulado_Prest | mConst}}</td>
+                                <td>{{regis.Capital_Intereses | mConst}}</td>
+                                <td>{{regis.Tasa_intereses | mConst}}</td>
+                                <td>{{regis.Monto_Intereses | mConst}}</td>
+                                <td>{{regis.Intereses_Cancelados | mConst}}</td>
+                                <td>{{regis.Acumulado_Intereses | mConst}}</td>
+
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>

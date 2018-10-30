@@ -1,0 +1,18 @@
+#aceptar {
+  color: green;
+}
+#cancelar {
+  color: red;
+}
+button {
+  margin-right: 5px; 
+}
+#cancelar, #aceptar, #limpiar {
+  margin-right: 5px;
+}
+h3 {
+  margin-left: 0;
+}
+#lim {
+  margin-left: -0.5%;
+}

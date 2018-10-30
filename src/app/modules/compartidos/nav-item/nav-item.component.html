@@ -1,0 +1,17 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  <ng-container *ngFor="let child of items">
+    <ng-container *ngIf="child.children">
+      <button mat-menu-item [matMenuTriggerFor]="menu.childMenu">
+        <fa-icon *ngIf="child.iconName" [icon]="['fas', child.iconName]" [fixedWidth]="true" size="lg"></fa-icon>
+        {{child.displayName}}
+      </button>
+      <app-nav-item #menu [items]="child.children" ></app-nav-item>
+    </ng-container>
+    <ng-container *ngIf="!child.children">
+        <button mat-menu-item [routerLink]="[child.route]">
+          <fa-icon *ngIf="child.iconName" [icon]="['fas', child.iconName]" [fixedWidth]="true" size="lg"></fa-icon>
+          {{child.displayName}}
+        </button>
+    </ng-container>
+  </ng-container>
+</mat-menu>

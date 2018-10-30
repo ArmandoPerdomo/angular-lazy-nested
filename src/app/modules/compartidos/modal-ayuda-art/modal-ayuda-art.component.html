@@ -1,0 +1,198 @@
+<div class="modal-header">
+  <h4 class="modal-title">Ayuda de artículos</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="componenteModal">
+<div class="modal-body">
+  <div class="container">
+    <div class="form-group">
+     <div class="form-group row justify-content-start">
+      <div class="col-xs-7 col-sm-8 col-lg-8">
+        <div class="form-group row">
+        <div class="left8 form-group row col-lg-8">
+          <div class="form-group row">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <label class="col-form-label">Artículo:</label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <input type="text" class="form-control" formControlName="artiBuscar">
+            </div>
+            <div class="left20 col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              <button type="button" class="btn btn-default btn-responsive styleButton"><i class="fa fa-search"></i></button>
+            </div>
+            <div *ngIf='mostrarLimpiar' class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              <button type="button" class="btn btn-default btn-responsive styleButton" ><i class="fa fa-eraser"></i></button>
+            </div>                  
+          </div>
+          <div class="form-group row height50">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+              <label class="col-form-label">Modelo:</label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <input type="text" class="form-control" formControlName="modeloBuscar">
+            </div>
+            <div *ngIf='mostrarFiltrar' class="left20 col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              <button type="button" class="btn btn-default btn-responsive styleButton" (click)="mostrarBotones()"><i class="fa fa-filter"></i></button>
+            </div>
+            <div *ngIf='mostrarSubLinea' class="marginTop8 left20 col-xs-2 col-sm-2 col-md-2 col-lg-3">
+              <label>Sub Línea:</label>
+            </div>
+            <div *ngIf='mostrarOculto' class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            </div>
+          </div>
+          <div *ngIf='mostrarProCate' class="form-group row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label class="col-form-label">Proveedor:</label>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" class="form-control" formControlName="proveedorBuscar">
+              </div>
+              <div class="marginTop8 left20 col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <label>Categoría:</label>
+              </div>
+              <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              </div>
+          </div>
+          <div *ngIf='mostrarLineColor' class="form-group row">
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <label class="col-form-label">Línea:</label>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <input type="text" class="form-control" formControlName="lineaBuscar">
+              </div>
+              <div class="marginTop8 left20 col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <label>Color:</label>
+              </div>
+              <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+              </div>
+          </div>
+        </div>
+        <div class="marginTop40 col-lg-4">
+         <div [hidden]="true">
+            <input type="text" class="form-control" formControlName="colorBuscar">
+         </div>
+         <div *ngIf='mostrarInputs'>
+              <div class="marginTop15">
+                <input type="text" class="form-control" formControlName="subLineaBuscar">
+              </div>
+              <div class="marginTop15">
+                  <input type="text" class="form-control" formControlName="categoriaBuscar">
+              </div>
+              <div class="marginTop15">
+                  <input type="text" class="form-control" formControlName="colorBuscar">
+              </div>
+         </div>
+        </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="form-group table-responsive">
+                <div class="table-wrapper-scroll-y">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th style="width: 20%" scope="col">Código</th>
+                      <th style="width: 30%" scope="col">Modelo</th>
+                      <th style="width: 40%" scope="col">Descripción</th>
+                      <th style="width: 30%" scope="col">Referencia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let item of listaAyuda; let i index" (click)="obtenerCodigo(item)">
+                        <td>
+                            {{ item.sCodigo }}
+                        </td>
+                        <td>
+                            {{ item.sModelo }}
+                        </td>
+                        <td>
+                            {{ item.sDescripcion }}
+                        </td>
+                        <td>
+                            {{ item.sRefrencia }}
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+        </div>
+      </div>
+
+      <div class="col-xs-5 col-sm-4 col-lg-4">
+        <div>
+            <div class="form-group row table-responsive">
+                <table datatable class="table table-bordered" >
+                  <thead>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td class="pestana">Precio 1</td>
+                          <td>{{precio1}}</td>
+                      </tr>
+                      <tr>
+                          <td class="pestana">Precio 2</td>
+                          <td>{{precio2}}</td>
+                      </tr>
+                      <tr>
+                          <td class="pestana">Precio 3</td>
+                          <td>{{precio3}}</td>
+                      </tr>
+                      <tr>
+                          <td class="pestana">Precio 4</td>
+                          <td>{{precio4}}</td>
+                      </tr>
+                      <tr>
+                          <td class="pestana">Precio 5</td>
+                          <td>{{precio5}}</td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+        <div class="form-group border2">
+            <label>Disponibilidad Almacén</label>
+              <div class="form-group row">
+                <div class="col-xs-4 col-md-4">
+                  <label class="col-form-label">Stock:</label>
+                </div>
+                <div class="form-group left10 col-xs-8 col-md-8">
+                  <select id="inputState" class="form-control" formControlName="stock" required>
+                    <option value='' disabled selected>STOCK ACTUAL:</option>
+                    <option *ngFor="let sto of listaStock" [ngValue]="sto.sCodigo" ngDefaultControl maxlength="20">{{sto.sCodigo}} - {{sto.sDescripcion}}</option> 
+                  </select>
+                </div>
+              </div>
+              <div class="margin">
+                <div class="form-group table-responsive">
+                  <table datatable class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Almacén</th>
+                        <th scope="col">Stock</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tablaDetalle" *ngFor="let i = index">
+                        
+                          <td></td>
+                          <td></td>
+      
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+      
+    </div>
+  </div>
+</div>
+<div class="modal-footer centerFooter">
+ <button type="button" class="border btn btn-outline-dark" (click)="cerrar()">Aceptar</button>
+  <button type="button" class="border btn btn-outline-dark" (click)="activeModal.close('Close click')">Salir</button>
+</div>
+</form>

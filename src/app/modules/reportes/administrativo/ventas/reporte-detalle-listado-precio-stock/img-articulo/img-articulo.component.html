@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title" style="margin: 0">{{desc_art}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+    <mat-spinner *ngIf="loading" color="warn" [diameter]="40"></mat-spinner>
+
+    <div *ngIf="!carga && !loading">
+        <br>
+        <br>
+        <br>
+      <h6 class="center"> {{ msjerror }}</h6>
+        <br>
+        <br>
+        <br>
+    </div>
+
+    <div *ngIf="carga && !loading">
+        <div style="display: flex">
+            <div style="width: 100%; display: flex">
+              <ngx-image-viewer [src]="imgArt"></ngx-image-viewer>
+          </div>
+    </div> 
+  </div>
+ 

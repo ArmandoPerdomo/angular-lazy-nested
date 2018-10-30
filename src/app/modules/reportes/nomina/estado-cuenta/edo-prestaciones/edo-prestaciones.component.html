@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h3>{{ tilEdoPrestaciones }}</h3>
+            <hr>
+            <div class="card" stu>
+                <div class="card-body">
+                    <form class="form-horizontal" [formGroup]="ListadoEdoPrestaciones">
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="nmro">Trabajador:</label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span  class="text-danger" *ngIf="ListadoEdoPrestaciones.controls.trabajadorD.invalid && ListadoEdoPrestaciones.controls.trabajadorD.touched">Trabajador requerido</span>
+                                <app-combo-contrutodo [servicio]="trabajadorCallback" [tipoLista]=2 [formControlName]="'trabajadorD'"
+                                 [selectedItemIds]="TrabajadorD" (codigo)="changeTrabajadorCodigo($event)" (codigo)="cleanTrabajador($event)"
+                                [ngClass]="{
+                                    'has-danger': ListadoEdoPrestaciones.controls.trabajadorD.invalid, 
+                                    'has-success':ListadoEdoPrestaciones.controls.trabajadorD.valid }"></app-combo-contrutodo>
+                            </div>
+                            <div class="form-group col-md-4">
+                                    <span *ngIf="ListadoEdoPrestaciones.controls.trabajadorH.invalid && ListadoEdoPrestaciones.controls.trabajadorH.touched">Trabajador requerido</span>
+                                <app-combo-contrutodo [servicio]="trabajadorCallback" [tipoLista]=2 [formControlName]="'trabajadorH'" [selectedItemIds]="TrabajadorH"  [ngClass]="{
+                                    'has-danger': ListadoEdoPrestaciones.controls.trabajadorH.invalid, 
+                                    'has-success':ListadoEdoPrestaciones.controls.trabajadorH.valid }"></app-combo-contrutodo>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="nmro">Fecha:</label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span *ngIf="ListadoEdoPrestaciones.controls.dateD.invalid && ListadoEdoPrestaciones.controls.dateD.touched" class="text-danger"> Campo Requerido</span>
+                                <div class="input-group ">
+                                    <input class="form-control" [ngClass]="{
+                                                            'has-danger': ListadoEdoPrestaciones.controls.dateD.invalid && ListadoEdoPrestaciones.controls.dateD.dirty , 
+                                                            'has-success':ListadoEdoPrestaciones.controls.dateD.valid && ListadoEdoPrestaciones.controls.dateD.dirty 
+                                                            }" placeholder="yyyy-mm-dd"  [maxDate]="maxDate" [(ngModel)]="FechaD" formControlName="dateD"
+                                        ngbDatepicker #dD="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div *ngIf="ListadoEdoPrestaciones.controls.dateH.invalid && ListadoEdoPrestaciones.controls.dateH.touched" class="text-danger">
+                                    <span *ngIf="ListadoEdoPrestaciones.controls.dateH.invalid" class="text-danger">Seleccione una fecha mayor</span>
+                                    <span *ngIf="ListadoEdoPrestaciones.controls.dateH.required" class="text-danger">Campo Requerido</span>
+                                </div>
+                                <div class="input-group ">
+                                    <input class="form-control" [ngClass]="{
+                                                        'has-danger': ListadoEdoPrestaciones.controls.dateH.invalid && ListadoEdoPrestaciones.controls.dateH.dirty , 
+                                                        'has-success':ListadoEdoPrestaciones.controls.dateH.valid && ListadoEdoPrestaciones.controls.dateH.dirty}" placeholder="yyyy-mm-dd"
+                                    [maxDate]="maxDate" [minDate]="FechaD" [(ngModel)]="FechaH" formControlName="dateH" ngbDatepicker #dH="ngbDatepicker">
+                                    <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" (click)="dH.toggle()" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="inputCliente">Enviar a:</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select class="form-control" formControlName="enviar" [(ngModel)]='env' placeholder="Enviar a"  [ngClass]="{'has-danger': ListadoEdoPrestaciones.controls.enviar.invalid && ListadoEdoPrestaciones.controls.enviar.dirty, 
+                                'has-success':ListadoEdoPrestaciones.controls.enviar.valid && ListadoEdoPrestaciones.controls.enviar.dirty }">
+                                <option value="" disabled>Enviar a</option> 
+                                <option value="Listado">Detalle</option>
+                                <option value='PDF'>Archivo PDF</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <button id="lim" type="button" class="btn btn-light" (click)="limpiar()"><i class="fa fa-trash-o" id="limpiar" aria-hidden="true" ></i>Limpiar Filtros</button>
+                            <button type="button" class="btn btn-light" (click)="Aceptar()"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+                            <button type="button" class="btn btn-light" (click)="goBack()" ><i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+
+
+              
+    
+    
+        
+          
+          

@@ -1,0 +1,99 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col">
+      <h3>{{titListStock}}</h3>
+      <hr>
+
+      <div class="card">
+
+        <div class="card-body">
+          <form class="form-horizontal" [formGroup]="listStock">
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Código:</label>
+              </div>
+
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="codeCallback" [tipoLista]=2 [formControlName]="'codeF'"
+                  [selectedItemIds]="codF" (codigo)="changeCode($event)" (codigo)="cleanCode($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="codeCallback" [tipoLista]=2 [formControlName]="'codeU'"
+                  [selectedItemIds]="codU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Línea:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="lineCallback" [tipoLista]=2 [formControlName]="'lineF'"
+                  [selectedItemIds]="linF" (codigo)="changeLine($event)"  (codigo)="cleanLine($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="lineCallback" [tipoLista]=2 [formControlName]="'lineU'"
+                  [selectedItemIds]="linU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Sub-Línea:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="sublineCallback" [tipoLista]=2 [formControlName]="'sublineF'"
+                  [selectedItemIds]="subF" (codigo)="changeSubline($event)" (codigo)="cleanSubLine($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="sublineCallback" [tipoLista]=2 [formControlName]="'sublineU'"
+                  [selectedItemIds]="subU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Categoría:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="categoryCallback" [tipoLista]=2 [formControlName]="'categoryF'"
+                  [selectedItemIds]="cateF" (codigo)="changeCategory($event)"  (codigo)="cleanCategory($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="categoryCallback" [tipoLista]=2 [formControlName]="'categoryU'"
+                  [selectedItemIds]="cateU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputCliente">Enviar a:</label>
+              </div>
+              <div class="form-group col-md-2">
+                <select class="form-control" formControlName="sendTo" [(ngModel)]='send' placeholder="Enviar a: "
+                  [ngClass]="{
+                  'has-danger': listStock.controls.sendTo.invalid && listStock.controls.sendTo.dirty, 
+                  'has-success':listStock.controls.sendTo.valid && listStock.controls.sendTo.dirty 
+                }">
+                  <option value='' disabled>Enviar a</option>
+                  <option value="Listado">Detalle</option>
+                  <option value='PDF'>Archivo PDF</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <button type="button" class="btn btn-light lim" (click)="clearFields()" id="lim">
+                <i class="fa fa-trash-o" id="limpiar" aria-hidden="true"></i>Limpiar Filtros</button>
+              <button type="button" class="btn btn-light" (click)="accept()">
+                <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+              <button type="button" class="btn btn-light" (click)="goBack()">
+                <i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+#tabla_doc {
+  width: 100%;
+}
+.fa-check{
+  color: green;
+  padding-right: 4px;
+}
+.fa-arrow-left{
+  color: red;
+  padding-right: 4px;
+}
+h3 {
+  margin: 0;
+}
+#tab {
+  padding: 5px;
+}
+#tab2{
+  margin: 3px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}

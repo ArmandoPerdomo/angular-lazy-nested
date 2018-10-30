@@ -1,0 +1,40 @@
+#ro{
+    margin-top: 2%;
+  }
+  #principal{
+    margin-left: 0;
+  border: 1px solid #868686;
+  padding-bottom: 2%;
+  border-radius: 8px 8px;
+  }
+  #row1{
+    margin-top: 2%;
+  }
+  #aceptar{
+    color: green;
+  }
+  #cancela{
+    color:red;
+  }
+  strong{
+    color: #E53835;
+    font-size: 30px;
+    text-align: left;
+  }
+  #inp:focus{
+    box-shadow: 0 0 0 0.2rem rgba(255,0,0.1);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(255,0,0,0.55);
+    border: solid 0.5px red;
+    }
+  #inp:active{
+    box-shadow: 0 0 0 0.2rem rgba(255,0,0.1);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(255,0,0,0.55);
+    border: solid 0.5px red;
+    }
+    #aceptar{
+      color: green;
+    }
+    #cancelar{
+      color: red;
+    }
+  

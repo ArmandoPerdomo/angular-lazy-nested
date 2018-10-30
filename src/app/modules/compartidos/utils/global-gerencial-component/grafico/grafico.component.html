@@ -1,0 +1,91 @@
+<div class="modal-header">
+    <h4 class="modal-title" style="margin: 0">Gráfico</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form class="form-horizontal" [formGroup]="chartForm">
+          <div class="container">
+            <h4>Generales</h4>
+            <div class="row">
+              <div class="col-sm">
+                <label>Tipo de Gráfico: </label>
+                <select id="typeChart" name="typeChart" class="form-control form-control-sm" formControlName="typeChart" (change)="changeTypeChart($event.target.value)">
+                  <option value="bar">Barra</option>
+                  <option value="pie">Circular</option>
+                  <option value="line">Líneas</option>
+                </select>
+              </div>
+              <div class="col-sm">
+                <label>Periodo: </label>
+                <select id="period" name="period" class="form-control form-control-sm" formControlName="period" (change)="changePeriod($event.target.value)">
+                  <option value="1">Últimos días (7)</option>
+                  <option value="2">Últimas semanas (5)</option>
+                  <option value="3">Últimos meses (12)</option>
+                  <option value="4">Últimos años (10)</option>
+                </select>
+              </div>
+            </div>
+            <hr>
+            <div id="empty" class="empty" *ngIf="empty">
+              <h4>No hay datos para mostrar</h4>
+            </div>
+            <h4 id="mostrarlabel" *ngIf="!empty">Mostrar</h4>
+            <div id="mostrar" class="row" *ngIf="!empty">
+              <div class="col-md">
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="cobros" formControlName="cobros" (change)="hideOrUnhideData($event.target)">Cobros
+                  </label>
+                </div>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="depositos" formControlName="depositos" (change)="hideOrUnhideData($event.target)">Depositos
+                  </label>
+                </div>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="pagos" formControlName="pagos" (change)="hideOrUnhideData($event.target)">Pagos
+                  </label>
+                </div>
+                <div class="form-check-inline">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" name="ordenes" formControlName="ordenes" (change)="hideOrUnhideData($event.target)">Ordenes de Compra
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="container">
+            <div class="grafico" *ngIf="!empty">
+                <canvas id="canvaschart" baseChart #myChart="base-chart"
+                        [datasets]="chartData"
+                        [labels]="chartLabels"
+                        [options]="chartOptions"
+                        [legend]="chartLegend"
+                        [chartType]="chartType"
+                        [colors]="chartColors"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)">
+                </canvas>
+            </div>
+        </div>
+      
+  </div>
+  <hr>
+  <form [formGroup]="optionsForm">
+    <div class="row" style="margin: 20px 0px">
+      <div class="col-md-8">
+          <input type="text" class="form-control" formControlName="nombre" [(ngModel)]="nom"  placeholder="Escriba un nombre para la imagen" *ngIf="!empty" required>
+      </div>
+      <div class="col-md-4">
+          <button style="margin-right:5px;" type="button" class="btn btn-secondary" (click)="saveToFavorites()" *ngIf="!empty">Guardar en favoritos</button>
+          <a id="download" class="btn btn-secondary" (click)="downloadCanvas($event)" *ngIf="!empty">Descargar</a>
+      </div>         
+    </div> 
+  </form>     
+ 
+

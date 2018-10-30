@@ -1,0 +1,70 @@
+<div class="modal-content">
+<div class="modal-header">
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="componenteModal" class="formulario">
+<div class="modal-body">
+    <div class="container-fluid justify-content-end form-group marginTop">
+      <div class="form-group row top">
+        <div class="col-md-8">
+          <div class="row">
+
+            <div class="col-md-2">
+      
+            </div>
+
+            <div class="col-md-8">
+            
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-4 left">
+          <app-barra-tarea #barra [mostrar]="false"></app-barra-tarea>
+        </div>
+      </div>
+    <br>
+      <div class="componenteGeneral">
+        <ngb-tabset>
+          <ngb-tab title="Generales">
+            <ng-template ngbTabContent>
+              <div>
+                <app-componente-generales #generales [mostrarStatus]="true" [mostrarSel]="true" 
+                [mostrarbt]="false" [mostrarImp]="true" [ocultarImp]="false">
+
+                </app-componente-generales>
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab title="Adicionales">
+            <ng-template ngbTabContent>
+              <div>
+                <app-componente-adicionales></app-componente-adicionales>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+      <div class="row">
+        <div class="btn-group" role="group">
+          <div class="btn-group padding">
+            <button type="button" class="btn btn-default btn-responsive styleButton" >Aceptar</button>
+          </div>
+          <div class="btn-group padding">
+            <button type="button" class="btn btn-default btn-responsive styleButton" >Completo</button>
+          </div>
+          <div class="btn-group padding">
+            <button type="button" class="btn btn-default btn-responsive styleButton" (click)="activeModal.close('Close click')" >Salir</button>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</form>
+</div>
+

@@ -1,0 +1,231 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h3>{{formatocontable.titulo}}</h3>
+      <hr>
+      <div class="card">
+        <div class="card-body">
+          <form  [formGroup]="generalContable">
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Cuenta contable:</label>
+              </div>
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="accountCallback" [tipoLista]=2 [formControlName]="'accountF'"
+                  [selectedItemIds]="accF" (codigo)="changeAccount($event)" (codigo)="cleanAccount($event)"></app-combo-contrutodo>
+              </div>
+  
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="accountCallback" [tipoLista]=2 [formControlName]="'accountU'"
+                  [selectedItemIds]="accU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+
+            <div class="form-row" *ngIf="formatocontable.type!='gnral'">
+              <div class="form-group col-md-2">
+                  <label for="nmro">Fecha:</label>
+              </div>
+              <div class="form-group col-md-4">
+                  <span *ngIf="generalContable.controls.dateF.invalid && generalContable.controls.dateF.touched" class="text-danger"> Campo Requerido</span>
+                  <div class="input-group ">
+                      <input class="form-control" [ngClass]="{
+                                              'has-danger': generalContable.controls.dateF.invalid && generalContable.controls.dateF.dirty , 
+                                              'has-success':generalContable.controls.dateF.valid && generalContable.controls.dateF.dirty }"
+                                              placeholder="dd-mm-yyyy"  [maxDate]="maxDate" [minDate]="minDate"  [(ngModel)]="datF" formControlName="dateF"
+                          ngbDatepicker #dD="ngbDatepicker">
+                      <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                          <i class="fa fa-calendar"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                  <div *ngIf="generalContable.controls.dateU.invalid && generalContable.controls.dateU.touched" class="text-danger">
+                      <span *ngIf="generalContable.controls.dateU.invalid" class="text-danger">Seleccione una fecha mayor</span>
+                      <span *ngIf="generalContable.controls.dateU.required" class="text-danger">Campo Requerido</span>
+                  </div>
+                  <div class="input-group ">
+                      <input class="form-control" [ngClass]="{
+                                          'has-danger': generalContable.controls.dateU.invalid && generalContable.controls.dateU.dirty , 
+                                          'has-success':generalContable.controls.dateU.valid && generalContable.controls.dateU.dirty}" placeholder="dd-mm-yyyy"
+                                          [maxDate]="maxDate" [minDate]="datF" [(ngModel)]="datU" formControlName="dateU" ngbDatepicker #dH="ngbDatepicker">
+                      <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" (click)="dH.toggle()" type="button">
+                          <i class="fa fa-calendar"></i>
+                      </button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-row"  *ngIf="formatocontable.type=='gnral'">
+              <div class="form-group col-md-2">
+                  <label for="nmro">Fecha:</label>
+              </div>
+              <div class="form-group col-md-8">
+                  <span *ngIf="generalContable.controls.date.invalid && generalContable.controls.date.touched" class="text-danger"> Campo Requerido</span>
+                  <div class="input-group ">
+                      <input class="form-control" [ngClass]="{
+                                              'has-danger': generalContable.controls.date.invalid && generalContable.controls.date.dirty , 
+                                              'has-success':generalContable.controls.date.valid && generalContable.controls.date.dirty }"
+                                              placeholder="dd-mm-yyyy"  [maxDate]="maxDate" [minDate]="minDate"  [(ngModel)]="dat" formControlName="date"
+                          ngbDatepicker #dD="ngbDatepicker">
+                      <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                          <i class="fa fa-calendar"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Centro de costo:</label>
+              </div>
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="costCallback" [tipoLista]=2 [formControlName]="'costF'"
+                  [selectedItemIds]="cosF"  (codigo)="changeCost($event)" (codigo)="cleanCost($event)"></app-combo-contrutodo>
+              </div>
+  
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="costCallback" [tipoLista]=2 [formControlName]="'costU'"
+                  [selectedItemIds]="cosU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Cuenta de gasto:</label>
+              </div>
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="spendingCallback" [tipoLista]=2 [formControlName]="'spendingF'"
+                  [selectedItemIds]="speF" (codigo)="changeSpending($event)" (codigo)="cleanSpending($event)"></app-combo-contrutodo>
+              </div>
+  
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="spendingCallback" [tipoLista]=2 [formControlName]="'spendingU'"
+                  [selectedItemIds]="speU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Atributo:</label>
+              </div>
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="attributeCallback" [tipoLista]=2 [formControlName]="'attributeF'"
+                  [selectedItemIds]="attF" (codigo)="changeAttribute($event)"  (codigo)="cleanAttribute($event)"></app-combo-contrutodo>
+              </div>
+  
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="attributeCallback" [tipoLista]=2 [formControlName]="'attributeU'"
+                  [selectedItemIds]="attU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Auxiliar:</label>
+              </div>
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="assistantCallback" [tipoLista]=2 [formControlName]="'assistantF'"
+                  [selectedItemIds]="assF" (codigo)="changeAssistan($event)" (codigo)="cleanAssistan($event)"></app-combo-contrutodo>
+              </div>
+  
+              <div class="form-group col-md-4">
+                  <app-combo-contrutodo [servicio]="assistantCallback" [tipoLista]=2 [formControlName]="'assistantU'"
+                  [selectedItemIds]="assU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="">Tipo/Comprobante:</label>
+                </div>
+                <div class="form-group col-md-8">
+                    <app-combo-contrutodo [servicio]="typeCallback" [tipoLista]=1 [formControlName]="'type'"
+                    [selectedItemIds]="tip" (codigo)="cleanType($event)"></app-combo-contrutodo>
+                </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Cta. con saldo:</label>
+              </div>
+              <div class="form-group col-md-8">
+                  <app-combo-contrutodo [servicio]="wbalanceCallback" [tipoLista]=1 [formControlName]="'wbalance'"
+                  [selectedItemIds]="wbal" (codigo)="cleanWBalance($event)"></app-combo-contrutodo>
+              </div>
+            </div>
+          
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Moneda:</label>
+              </div>
+              <div class="form-group col-md-8">
+                  <app-combo-contrutodo [servicio]="coinCallback" [tipoLista]=1 [formControlName]="'coin'"
+                  [selectedItemIds]="coi" (codigo)="cleanCoin($event)"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="">Nivel:</label>
+              </div>
+              <div class="form-group col-md-8">
+                  <app-combo-contrutodo [servicio]="levelCallback" [tipoLista]=1 [formControlName]="'level'"
+                  [selectedItemIds]="lev" (codigo)="cleanLevel($event)"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            
+            <div class="form-row" *ngIf="formatocontable.type!='gnral'">
+              <div class="form-group col-md-2">
+                  <label for="">Excluir ctas. órden:</label>
+              </div>
+              <div class="form-group col-md-8">
+                  <app-combo-contrutodo [servicio]="excludeACallback" [tipoLista]=1 [formControlName]="'excludeA'"
+                  [selectedItemIds]="exa" (codigo)="cleanExclude($event)"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row" *ngIf="formatocontable.type=='ganper' || formatocontable.type=='ganperm'">
+                <div class="form-group col-md-2">
+                    <label for="">Comprobante cierre:</label>
+                </div>
+                <div class="form-group col-md-8">
+                    <app-combo-contrutodo [servicio]="voucherCloseCallback" [tipoLista]=1 [formControlName]="'voucherClose'"
+                    [selectedItemIds]="vcl" (codigo)="cleanVClose($event)"></app-combo-contrutodo>
+                </div>
+              </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                  <label for="inputCliente">Enviar a:</label>
+              </div>
+              <div class="form-group col-md-2">
+                  <select class="form-control" formControlName="sendTo" [(ngModel)]='send' placeholder="Enviar a" 
+                  [ngClass]="{'has-danger': generalContable.controls.sendTo.invalid && generalContable.controls.sendTo.dirty, 
+                  'has-success':generalContable.controls.sendTo.valid && generalContable.controls.sendTo.dirty }">
+                      <option value="" disabled>Enviar a</option> 
+                      <option value="Listado">Detalle</option>
+                      <option value="PDF">Archivo PDF</option>
+                  </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="button" class="btn btn-light lim" (click)="clean()"><i class="fa fa-trash-o" id="limpiar" aria-hidden="true" ></i>Limpiar Filtros</button>
+              <button type="button" class="btn btn-light" (click)="accept()"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+              <button type="button" class="btn btn-light" (click)="goBack()" ><i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button> 
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

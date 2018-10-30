@@ -1,0 +1,189 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col">
+      <h3>{{titListCompVen}}</h3>
+      <hr>
+
+      <div class="card">
+
+        <div class="card-body">
+          <form class="form-horizontal" [formGroup]="listCompVen">
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="art">Artículo:</label>
+              </div>
+
+              <div class="form-group col-md-4">
+                <div class="input-group">
+                  <input type="text" class="form-control" min="0" [ngClass]="{
+                                  'has-danger': listCompVen.controls.itemF.invalid && listCompVen.controls.itemF.dirty, 
+                                  'has-success': listCompVen.controls.itemF.valid && listCompVen.controls.itemF.dirty
+                              }"
+                    placeholder="ARTÍCULO" id="inputitem_F" formControlName='itemF' [(ngModel)]='itmF'>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <span *ngIf="!flag" class="text-danger"> Campo no puede ser menor.</span>
+                <div class="input-group">
+                  <input type="text" class="form-control" min="0" [ngClass]="{
+                        'has-danger':  listCompVen.controls.itemU.invalid && listCompVen.controls.itemU.dirty, 
+                        'has-success':listCompVen.controls.itemU.valid && listCompVen.controls.itemU.dirty
+                    }"
+                    placeholder="ARTÍCULO" id="inputitem_U" formControlName='itemU' [(ngModel)]='itmU'>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="fech">Fecha:</label>
+              </div>
+
+              <div class="form-group col-md-4">
+                <span *ngIf="listCompVen.controls.dateF.invalid && listCompVen.controls.dateF.touched" class="text-danger">
+                  Campo Requerido.</span>
+                <div class="input-group ">
+                  <input class="form-control" [ngClass]="{
+                          'has-danger': listCompVen.controls.dateF.invalid && listCompVen.controls.dateF.dirty , 
+                          'has-success':listCompVen.controls.dateF.valid && listCompVen.controls.dateF.dirty 
+                          }"
+                    placeholder="yyyy-mm-dd" [maxDate]="datU" [(ngModel)]="datF" formControlName="dateF" ngbDatepicker
+                    #dD="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <div *ngIf="listCompVen.controls.dateU.invalid && listCompVen.controls.dateU.touched" class="text-danger">
+                  <span *ngIf="listCompVen.controls.dateU.invalid" class="text-danger">Seleccione una fecha menor.</span>
+                  <span *ngIf="listCompVen.controls.dateU.required" class="text-danger">Campo requerido.</span>
+                </div>
+                <div class="input-group ">
+                  <input class="form-control" [ngClass]="{
+                                            'has-danger': listCompVen.controls.dateU.invalid && listCompVen.controls.dateU.dirty , 
+                                            'has-success':listCompVen.controls.dateU.valid && listCompVen.controls.dateU.dirty}"
+                    placeholder="yyyy-mm-dd" [maxDate]="maxDate" [minDate]="datF" [(ngModel)]="datU" formControlName="dateU"
+                    ngbDatepicker #dH="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="dH.toggle()" type="button">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="alma">Almacén:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="storageCallback" [tipoLista]=2 [formControlName]="'storageF'"
+                  [selectedItemIds]="stoF" (codigo)="changeStorage($event)" (codigo)="cleanStorage($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="storageCallback" [tipoLista]=2 [formControlName]="'storageU'"
+                  [selectedItemIds]="stoU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Línea:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="lineCallback" [tipoLista]=2 [formControlName]="'lineF'"
+                  [selectedItemIds]="linF" (codigo)="changeLine($event)" (codigo)="cleanLine($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="lineCallback" [tipoLista]=2 [formControlName]="'lineU'"
+                  [selectedItemIds]="linU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Categoría:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="categoryCallback" [tipoLista]=2 [formControlName]="'categoryF'"
+                  [selectedItemIds]="cateF" (codigo)="changeCategory($event)" (codigo)="cleanCategory($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="categoryCallback" [tipoLista]=2 [formControlName]="'categoryU'"
+                  [selectedItemIds]="cateU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Proveedor:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="providerCallback" [tipoLista]=2 [formControlName]="'providerF'"
+                  [selectedItemIds]="provF" (codigo)="changeProvider($event)" (codigo)="cleanProvider($event)"></app-combo-contrutodo>
+              </div>
+              <div class="form-group col-md-4">
+                <app-combo-contrutodo [servicio]="providerCallback" [tipoLista]=2 [formControlName]="'providerU'"
+                  [selectedItemIds]="provU"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Con movimientos:</label>
+              </div>
+              <div class="form-group col-md-8">
+                <app-combo-contrutodo [servicio]="movementsCallback" [tipoLista]=1 [formControlName]="'movements'"
+                  [selectedItemIds]="move" [hideCode]="true" (codigo)="cleanMove($event)"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="">Tipo de unidad:</label>
+              </div>
+              <div class="form-group col-md-8">
+                <app-combo-contrutodo [servicio]="unitTypeCallback" [tipoLista]=1 [formControlName]="'unitType'"
+                  [selectedItemIds]="unit" [hideCode]="true"  (codigo)="cleanUnit($event)"></app-combo-contrutodo>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputCliente">Enviar a:</label>
+              </div>
+              <div class="form-group col-md-2">
+                <select class="form-control" formControlName="sendTo" [(ngModel)]='send' placeholder="Enviar a: "
+                  [ngClass]="{
+                      'has-danger': listCompVen.controls.sendTo.invalid && listCompVen.controls.sendTo.dirty, 
+                      'has-success':listCompVen.controls.sendTo.valid && listCompVen.controls.sendTo.dirty 
+                    }">
+                  <option value='' disabled>Enviar a</option>
+                  <option value="Listado">Detalle</option>
+                  <option value='PDF'>Archivo PDF</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <button type="button" class="btn btn-light" (click)="clearFields()" id="lim">
+                <i class="fa fa-trash-o" id="limpiar" aria-hidden="true"></i>Limpiar Filtros</button>
+              <button type="button" class="btn btn-light" (click)="accept()">
+                <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+              <button type="button" class="btn btn-light" (click)="goBack()">
+                <i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

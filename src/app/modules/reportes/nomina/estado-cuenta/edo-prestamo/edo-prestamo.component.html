@@ -1,0 +1,146 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h3>{{ tilEdoPrestamo }}</h3>
+            <hr>
+            <div class="card" stu>
+                <div class="card-body">
+                    <form [formGroup]="prestamo">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="">Tipo de préstamo:</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <app-combo-contrutodo [servicio]="typeCallback" [tipoLista]=2 [formControlName]="'type'"
+                                [selectedItemIds]="tip" (codigo)="cleanType($event)"></app-combo-contrutodo>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="">Trabajador:</label>
+                            </div>
+                            
+                            <div class="form-group col-md-4">
+                                <app-combo-contrutodo [servicio]="employeeCallback" [tipoLista]=2 [formControlName]="'employeeF'"
+                                [selectedItemIds]="empF" (codigo)="changeEmployee($event)" (codigo)="cleanEmployee($event)"></app-combo-contrutodo>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <app-combo-contrutodo [servicio]="employeeCallback" [tipoLista]=2 [formControlName]="'employeeU'"
+                                [selectedItemIds]="empU"></app-combo-contrutodo>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="">Contrato:</label>
+                            </div>
+                
+                            <div class="form-group col-md-4">
+                                <app-combo-contrutodo [servicio]="contractCallback" [tipoLista]=2 [formControlName]="'contractF'"
+                                [selectedItemIds]="conF" (codigo)="changeContract($event)" (codigo)="cleanContract($event)"></app-combo-contrutodo>
+                            </div>
+                
+                            <div class="form-group col-md-4">
+                                <app-combo-contrutodo [servicio]="contractCallback" [tipoLista]=2 [formControlName]="'contractU'"
+                                [selectedItemIds]="conU"></app-combo-contrutodo>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="nmro">Fecha:</label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span *ngIf="prestamo.controls.dateF.invalid && prestamo.controls.dateF.touched" class="text-danger"> Campo Requerido</span>
+                                <div class="input-group ">
+                                    <input class="form-control" [ngClass]="{
+                                                            'has-danger': prestamo.controls.dateF.invalid && prestamo.controls.dateF.dirty , 
+                                                            'has-success':prestamo.controls.dateF.valid && prestamo.controls.dateF.dirty }"
+                                                            placeholder="dd-mm-yyyy"  [maxDate]="maxDate" [(ngModel)]="datF" formControlName="dateF"
+                                        ngbDatepicker #dD="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div *ngIf="prestamo.controls.dateU.invalid && prestamo.controls.dateU.touched" class="text-danger">
+                                    <span *ngIf="prestamo.controls.dateU.invalid" class="text-danger">Seleccione una fecha mayor</span>
+                                    <span *ngIf="prestamo.controls.dateU.required" class="text-danger">Campo Requerido</span>
+                                </div>
+                                <div class="input-group ">
+                                    <input class="form-control" [ngClass]="{
+                                                        'has-danger': prestamo.controls.dateU.invalid && prestamo.controls.dateU.dirty , 
+                                                        'has-success':prestamo.controls.dateU.valid && prestamo.controls.dateU.dirty}" placeholder="dd-mm-yyyy"
+                                                        [maxDate]="maxDate" [minDate]="datF" [(ngModel)]="datU" formControlName="dateU" ngbDatepicker #dH="ngbDatepicker">
+                                    <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" (click)="dH.toggle()" type="button">
+                                        <i class="fa fa-calendar"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="">Frecuencia:</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <app-combo-contrutodo [servicio]="frequencyCallback" [hideCode]="true" [tipoLista]=1 [formControlName]="'frequency'"
+                                [selectedItemIds]="frec" (codigo)="cleanFrequency($event)"></app-combo-contrutodo>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="">Pagados:</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <app-combo-contrutodo [servicio]="paidCallback" [hideCode]="true"  [tipoLista]=1 [formControlName]="'paid'"
+                                [selectedItemIds]="pai" (codigo)="cleanPaid($event)"></app-combo-contrutodo>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="">Métodos:</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <app-combo-contrutodo [servicio]="methodCallback" [hideCode]="true"  [tipoLista]=1 [formControlName]="'method'"
+                                [selectedItemIds]="met" (codigo)="cleanMethod($event)"></app-combo-contrutodo>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="inputCliente">Enviar a:</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select class="form-control" formControlName="sendTo" [(ngModel)]='send' placeholder="Enviar a" 
+                                [ngClass]="{'has-danger': prestamo.controls.sendTo.invalid && prestamo.controls.sendTo.dirty, 
+                                'has-success':prestamo.controls.sendTo.valid && prestamo.controls.sendTo.dirty }">
+                                    <option value="" disabled>Enviar a</option> 
+                                    <option value="Listado">Detalle</option>
+                                    <option value="PDF">Archivo PDF</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <button type="button" class="btn btn-light lim" (click)="limpiar()"><i class="fa fa-trash-o" id="limpiar" aria-hidden="true" ></i>Limpiar Filtros</button>
+                            <button type="button" class="btn btn-light" (click)="Aceptar()"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+                            <button type="button" class="btn btn-light" (click)="goBack()" ><i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  

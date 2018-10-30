@@ -1,0 +1,311 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div style="padding: 5px 0px 0px 0px;">
+        <div class="row">
+          <div class="col-md-8">
+            <h3>{{title}}</h3>
+          </div>
+
+          <div class="col-md-2">
+            <select class="form-control" placeholder="Enviar a: ">
+              <option value='PDF'>Archivo PDF</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <button type="button" class="btn btn-light" (click)="accept()">
+              <i class="fa fa-check" id="accept" aria-hidden="true"></i>Aceptar</button>
+            <button type="button" class="btn btn-light" (click)="goBack()">
+              <i class="fa fa-arrow-left" id="cancel" aria-hidden="true"></i>Volver</button>
+          </div>
+        </div>
+        <hr>
+        <div class="card">
+          <div class="card-body">
+            <div class="row" id="tab">
+              <div class="col-md-12">
+                <mat-tab-group (selectedIndexChange)="selected.setValue($event)" [selectedIndex]="selected.value">
+                  <mat-tab *ngFor="let rep of listOut?.RepEdoCtaUtilidadesResult?.ResumenUtilidades" [label]="rep.Trabajador">
+                  </mat-tab>
+                </mat-tab-group>
+                <br>
+
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label id="boldy">Trabajador:</label>
+                    </div>
+                    <div class="col-md-8">
+                      <label>{{listOut?.RepEdoCtaUtilidadesResult?.ResumenUtilidades[selected.value]?.CodigoTrabajador}}&nbsp;
+                        {{listOut?.RepEdoCtaUtilidadesResult?.ResumenUtilidades[selected.value]?.Trabajador}}</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label id="boldy">Departamento:</label>
+                    </div>
+                    <div class="col-md-8">
+                      <label>{{listOut?.RepEdoCtaUtilidadesResult?.ResumenUtilidades[selected.value]?.Departamento}}</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label id="boldy">Fecha de Ingreso:</label>
+                    </div>
+                    <div class="col-md-8">
+                      <label>{{listOut?.RepEdoCtaUtilidadesResult?.ResumenUtilidades[selected.value]?.FechaIngreso}}</label>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row" id="tab">
+                  <ngx-datatable id="tabla_doc" class="material" 
+                    [rows]="listOut?.RepEdoCtaUtilidadesResult?.ResumenUtilidades[selected.value]?.DetalleConcepto" 
+                    [columnMode]="'force'" [summaryHeight]="'auto'"
+                    [headerHeight]="40" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [loadingIndicator]="loadingIndicator"
+                    [summaryRow]="enableSummary" [summaryPosition]="summaryPosition" [scrollbarH]="true">
+
+                    <ngx-datatable-column name="Concepto" prop="Concepto" width="200" [summaryTemplate]="conceptSummaryCell"></ngx-datatable-column>
+
+                    <ngx-datatable-column name="Enero" prop="Enero" width="125" [summaryTemplate]="janSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Febrero" prop="Febrero" width="125" [summaryTemplate]="febSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Marzo" prop="Marzo" width="125" [summaryTemplate]="marSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Abril" prop="Abril" width="125" [summaryTemplate]="aprSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Mayo" prop="Mayo" width="125" [summaryTemplate]="maySummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Junio" prop="Junio" width="125" [summaryTemplate]="junSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Julio" prop="Julio" width="125" [summaryTemplate]="julSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Agosto" prop="Agosto" width="125" [summaryTemplate]="augSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Septiembre" prop="Septiembre" width="125" [summaryTemplate]="sepSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Octubre" prop="Octubre" width="125" [summaryTemplate]="octSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Noviembre" prop="Novimbre" width="125" [summaryTemplate]="novSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Diciembre" prop="Diciembre" width="125" [summaryTemplate]="decSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Total" prop="Total" width="125" [summaryTemplate]="totSummaryCell">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p style="text-align: right">
+                          {{value | mConst}}
+                        </p>
+                      </ng-template>
+                    </ngx-datatable-column>
+                  </ngx-datatable>
+
+                  <ng-template #conceptSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: left">
+                        <span id="boldy">Totales trabajador:</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #janSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][0] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #febSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][1] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #marSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][2] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #aprSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][3] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #maySummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][4] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #junSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][5] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #julSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][6] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #augSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][7] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #sepSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][8] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #octSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][9] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #novSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][10] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #decSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][11] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                  <ng-template #totSummaryCell>
+                    <div class="neto-container" rowHeight="400px">
+                      <div style="text-align: right">
+                        <span id="boldy">{{acums[selected.value][12] | mConst}}</span>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+
+                <br>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label id="boldy">Total general:</label>
+                    </div>
+                    <div class="col-md-8">
+                      <label>{{listOut?.RepEdoCtaUtilidadesResult?.ResumenUtilidades[selected.value]?.TotalGeneral | mConst}}</label>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

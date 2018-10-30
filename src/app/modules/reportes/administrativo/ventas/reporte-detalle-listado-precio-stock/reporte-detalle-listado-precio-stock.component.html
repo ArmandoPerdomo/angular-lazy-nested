@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <div style="padding: 20px 0px 0px 0px;">
+          <div class="row">
+            <div class="col-md-6">
+              <h3>{{title}}</h3>
+            </div>
+            <div class="col-md-2">
+                <input  class="form-control"  type='text' placeholder='Buscar artículo' (keyup)='updateFilter($event)' />              
+          </div>
+            <div class="col-md-2">
+              <select class="form-control" placeholder="Enviar a: ">
+                <option value='PDF'>Archivo PDF</option>
+              </select>
+            </div>
+  
+            <div class="col-md-2">
+              <button type="button" class="btn btn-light" (click)="createPdf()">
+                <i class="fa fa-check" id="accept" aria-hidden="true"></i>Aceptar</button>
+              <button type="button" class="btn btn-light" (click)="goBack()">
+                <i class="fa fa-arrow-left" id="cancel" aria-hidden="true"></i>Volver</button>
+            </div>
+          </div>
+          <hr>
+
+          <div class="row" id="tab2">
+
+            <ngx-datatable 
+            id="tabla_doc" 
+            class="material" 
+            [rows]="rows" 
+            [summaryHeight]="'auto'"
+            [summaryRow]="enableSummary" 
+            [summaryPosition]="summaryPosition"
+            [columnMode]="'flex'" 
+              [headerHeight]="60" 
+              [footerHeight]="50" 
+              [rowHeight]="'auto'" 
+              [limit]="10" 
+              [rowClass]="getRowClass"
+              [selectionType]="'single'"  
+              [selected]="selected"
+              [scrollbarH]="true">
+              <ngx-datatable-column  [flexGrow]="0.2" >
+                <ng-template  ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                    <button class="noStyle" (click)="open()">
+                    <i class="fa fa-picture-o" id="cancel" aria-hidden="true"></i>
+                  </button>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column name="Código" prop="Co_art" [flexGrow]="0.5"></ngx-datatable-column>
+              
+              
+              <ngx-datatable-column    name="Descripción" prop="Art_des"[flexGrow]="2"></ngx-datatable-column>
+              
+              <ngx-datatable-column name="Unid." prop="Uni_vta" [flexGrow]="0.2"></ngx-datatable-column>
+  
+              <ngx-datatable-column name="Stock actual" prop="stock_act" [flexGrow]="0.3" [summaryTemplate]="stock" >
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                  <p style="text-align: right">
+                    {{value | mConst}}
+                  </p>
+                </ng-template>
+              </ngx-datatable-column>
+  
+  
+              <ngx-datatable-column name="P.V.P" prop="prec_vta1" [flexGrow]="0.5" [summaryTemplate]="pvp">
+                <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                  <p style="text-align: right !important;">
+                    {{value | mConst}}
+                  </p>
+                </ng-template>
+              </ngx-datatable-column>
+  
+            </ngx-datatable>
+
+            <ng-template #stock>
+              <div class="neto-container" rowHeight="400px" >
+                <div style="text-align: right">
+                  <span id="boldy">{{ sumarMonto(rows, 'stock_act') | mConst}} </span>
+                </div>
+              </div>
+            </ng-template>
+            
+            <ng-template #pvp>
+              <div class="neto-container" rowHeight="400px" >
+                <div style="text-align: right">
+                  <span id="boldy">{{ sumarMonto(rows, 'prec_vta1') | mConst}} </span>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

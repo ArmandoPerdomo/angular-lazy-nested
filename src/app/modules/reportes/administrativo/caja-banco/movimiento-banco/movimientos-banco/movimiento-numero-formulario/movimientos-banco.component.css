@@ -1,0 +1,53 @@
+.principal{
+  margin-top:4%;
+  margin-left: 0;
+  border: 1px solid #868686;
+  border-radius: 8px 8px;
+}
+
+.fa-check-circle{
+  color:green;
+  padding-right: 4px;
+}
+.fa-arrow-left{
+  color: red;
+  padding-right: 4px;
+}
+#tab {
+  padding: 5px;
+}
+h1{
+  margin:0;
+}
+#conta1{
+  border: 1px solid #868686;
+  border-radius: 8px 8px;
+}
+
+tbody tr:hover{
+  background:#FADBD8 ;
+}
+#row1{
+  margin-top: 2%;
+}
+
+#principal{
+  margin-left: 0;
+  border: 1px solid #868686;
+  border-radius: 8px 8px;
+  padding: 2%;
+  width: 70%;
+  }
+  #aceptar{
+    color: green;
+  }
+  #cancelar{
+    color:red;
+  }
+
+  #limpiar, #cancelar, #aceptar{
+    margin-right: 5px;
+  }
+  h1, h6{
+    color: #dc3545;
+  }

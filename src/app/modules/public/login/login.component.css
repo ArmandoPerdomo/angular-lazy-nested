@@ -1,0 +1,16 @@
+.mat-spinner{
+    margin: 10px auto;
+}
+
+.logo{
+    height: 130px;
+    width: 200px;
+}
+
+.row{
+    min-height: 100vh;
+}
+
+.gradient{
+    background-image: radial-gradient(circle, #c0bfbf, #a4a4a4, #8a8989, #707070, #575757);
+}

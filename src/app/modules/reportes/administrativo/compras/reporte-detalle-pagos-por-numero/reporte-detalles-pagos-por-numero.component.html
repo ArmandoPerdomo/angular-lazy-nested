@@ -1,0 +1,109 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div style="padding: 20px 0px 0px 0px;">
+        <div class="row">
+          <div class="col-md-8">
+            <h3>{{titListadoPagos}}</h3>
+          </div>
+
+          <div class="col-md-2">
+            <select class="form-control" placeholder="Enviar a: ">
+              <option value="PDF">Archivo PDF</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <button type="button" class="btn btn-light" (click)="createPdf(detalleReportout,detalleReportin)">
+              <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+            <button type="button" class="btn btn-light" (click)="goBack()">
+              <i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+          </div>
+        </div>
+        <hr>
+
+
+        <div class="row" id="tab2">
+          <ngx-datatable id="myTable1" 
+          #myTable 
+          class="material" 
+          [rows]="rows" 
+          [columnMode]="'flex'"
+          [headerHeight]="60" 
+          [footerHeight]="50" 
+          [rowHeight]="'auto'"
+          [limit]="10"
+            [loadingIndicator]="loadingIndicator">
+            <ngx-datatable-column name="Número" [flexGrow]="0.5" prop="Numero"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Fecha Pago" [flexGrow]="1" prop="Fecha">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p>
+                  {{value | dConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Proveedor" [flexGrow]="2" prop="Proveedor"></ngx-datatable-column>
+
+            <ngx-datatable-column style="text-align: right" name="Neto" [flexGrow]="1" prop="Neto">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Forma Pago" [flexGrow]="0.5" prop="FormaPago"></ngx-datatable-column>
+            <ngx-datatable-column name="Nro. Doc." [flexGrow]="1" prop="NDoc"></ngx-datatable-column>
+            <ngx-datatable-column name="Caja/Cta" [flexGrow]="0.5" prop="CajaCta"></ngx-datatable-column>
+            <ngx-datatable-column name="Descripción" [flexGrow]="1" prop="Descripcion"></ngx-datatable-column>
+            <ngx-datatable-column name="Monto" [flexGrow]="1.5" prop="Monto">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right;  margin-right: 10%;">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-footer>
+              <ng-template 
+                ngx-datatable-footer-template
+                let-rowCount="rowCount"
+                let-pageSize="pageSize"
+                let-selectedCount="selectedCount"
+                let-curPage="curPage"
+                let-offset="offset"
+                let-isVisible="isVisible">
+                <div class="col-md-6">
+          
+                  <div class="foot-pagination">  
+                    <datatable-pager
+                    [pagerLeftArrowIcon]="'datatable-icon-left'"
+                    [pagerRightArrowIcon]="'datatable-icon-right'"
+                    [pagerPreviousIcon]="'datatable-icon-prev'"
+                    [pagerNextIcon]="'datatable-icon-skip'"
+                    [page]="curPage"
+                    [size]="pageSize"
+                    [count]="rowCount"
+                    [hidden]="!((rowCount / pageSize) > 1)"
+                    (change)="table.onFooterPage($event)">
+                    </datatable-pager></div>
+                  </div>
+                <div class="col-md-6" style="padding: 20px 10px;">
+                  <div class="pull-right">
+                    <div class ="col-md-12 footer-table" >   
+                      <span style="text-align: right; font-weight:bold;">TOTAL MONTO: {{ acum | mConst}} </span>
+                    </div>
+                  </div>
+                  </div>
+
+              </ng-template>
+            </ngx-datatable-footer>
+
+          </ngx-datatable>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

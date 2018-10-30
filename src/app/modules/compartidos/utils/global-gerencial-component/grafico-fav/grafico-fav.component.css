@@ -1,0 +1,11 @@
+.empty{
+    display: table;
+    margin: 0 auto;
+  }
+  .fav-title{
+    font-weight: bold;
+  }
+  .grafico-fav{
+    width: 90%;
+    height: 90%;
+  }

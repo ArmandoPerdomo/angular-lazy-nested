@@ -1,0 +1,18 @@
+
+  #aceptar{
+    color: green;
+  }
+  #cancelar{
+    color:red;
+  }
+  #limpiar, #cancelar, #aceptar{
+    margin-right: 5px;
+  }
+  .lim{
+    margin-left: -5px; 
+  }
+  button{
+    margin-right: 5px; 
+  }
+
+

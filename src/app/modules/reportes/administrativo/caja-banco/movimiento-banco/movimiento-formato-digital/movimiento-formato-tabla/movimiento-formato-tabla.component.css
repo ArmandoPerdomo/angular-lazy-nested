@@ -1,0 +1,44 @@
+
+#cancelar, #aceptar{
+  margin-right: 5px;
+}
+
+.fa-check{
+  color: green;
+  padding-right: 4px;
+}
+.fa-arrow-left{
+  color: red;
+  padding-right: 4px;
+}
+
+#tab2{
+  margin: 3px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+#myTable1{
+  width: 100%;
+}
+h3{
+margin:0;
+}
+.cell-right-margin{
+  text-align: right;
+  margin-right: 1.3%;
+}
+.cell-right {
+text-align: right;
+}
+.cell-left{
+text-align: left;
+}
+.ngx-datatable.material .datatable-header .datatable-header-cell{
+  text-align: center;
+}
+#tab {
+  margin: 3px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+} 

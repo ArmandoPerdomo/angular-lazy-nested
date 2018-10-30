@@ -1,0 +1,21 @@
+#principal{
+    margin-left: 0;
+    border: 1px solid #868686;
+    border-radius: 5px;
+    padding: 1%;
+    }
+    #row1{
+      margin-top: 0;
+    }
+    strong{
+      color: #E53835;
+      font-size: 30px;
+      text-align: left;
+    }
+    #aceptar{
+      color: green;
+    }
+    #cancelar{
+      color: red;
+    }
+    

@@ -1,0 +1,150 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+        <div style="padding: 20px 0px 0px 0px;">
+            <div class="row">
+                <div class="col-md-8">
+                    <h3>{{titulo}}</h3>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control" placeholder="Enviar a: ">
+                        <option value="PDF">Archivo PDF</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-light" (click)="createPdf(detalleReport)"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+                    <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+      <div class="card">
+        <div class="card-body">
+          <!-- Diseño del Encabezado-->
+          <div class="row" id="row1">
+            <div class="form-group col-md-3">
+                <img class="logi" src="assets\img\logoconstrutodo.png">
+            </div>
+
+            <div class="form-group col-md-5">
+              <br><br><br>
+              <h5 style="text-align: justify">
+                Av. Los Pinos, entre calle Pomagas y los Mango, Casa Nro. 35
+                Urb. La Florida Norte, Zona Postal 1050 Ofi. +58212731.2087
+              </h5>
+            </div>
+
+            <div class="form-group col-md-4">
+              <br> <br> <br>
+              <table class="table table-responsive table-borderless">
+                <tr>
+                  <td class="bold">{{titulo_detalle}}:</td>
+                  <td style="text-align: right" *ngIf="titulo_detalle != 'Nro. Control'">{{
+                    detalleReport?.FormatosCobPagResult?.Encabezado?.Numero}}</td>
+                  <td style="text-align: right" *ngIf="titulo_detalle == 'Nro. Control'">{{
+                    detalleReport?.FormatosCobPagResult?.Encabezado?.NumControl}}</td>
+                </tr>
+                <tr>
+                  <td class="bold">Fecha de Emisión:</td>
+                  <td style="text-align: right">{{ detalleReport?.FormatosCobPagResult?.Encabezado.FechaEmis | dConst}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <table style="margin: 10px">
+                <tr>
+                  <td width="250px">Proveedor:</td>
+                  <td>{{ detalleReport?.FormatosCobPagResult?.Encabezado.Nombre_Prov_Clien}}</td>
+                </tr>
+                <tr>
+                  <td>Rif C.I:</td>
+                  <td>{{ detalleReport?.FormatosCobPagResult?.Encabezado.Rif}}</td>
+                </tr>
+                <tr>
+                  <td>Dirección:</td>
+                  <td>{{ detalleReport?.FormatosCobPagResult?.Encabezado.Dreccion}}</td>
+                </tr>
+                <tr>
+                  <td>Teléfono:</td>
+                  <td>{{ detalleReport?.FormatosCobPagResult?.Encabezado.Telefono}}</td>
+                </tr>
+                <tr>
+                  <td>Descripción:</td>
+                  <td>{{ detalleReport?.FormatosCobPagResult?.Encabezado.Descripcion}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <br>
+          <!-- tabla 1-->
+          <table class="table table-responsive table-borderless" id="tabla_doc">
+              <thead>
+                  <tr>
+                      <th style="text-align: center">Reng</th>
+                      <th style="text-align: center">Tipo</th>
+                      <th style="text-align: center">Nro. Documento</th>
+                      <th style="text-align: center">Código (Banc/Tarj).</th>
+                      <th style="text-align: center">Descripción (Banc/Tarj).</th>
+                      <th style="text-align: center">Fecha Cheque</th>
+                      <th style="text-align: center">Código (Caja/Cuent)</th>
+                      <th style="text-align: center">Descripción (Caja/Cuent)</th>
+                      <th style="text-align: right !important;">Monto</th>
+                    </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let reglon of detalleReport?.FormatosCobPagResult?.TipoPago">
+                      <td>{{ reglon.Renglon}}</td>
+                      <td>{{ reglon.Tipo}}</td>
+                      <td>{{ reglon.Documento}}</td>
+                      <td>{{ reglon.CodigoBanTar }}</td>
+                      <td>{{ reglon.DescripcionBanTar}}</td>
+                      <td>{{ reglon.FechaCheque | dConst}}</td>
+                      <td>{{ reglon.CodigoCajCta}}</td>
+                      <td>{{ reglon.DescripcionCajCta}}</td>
+                      <td style="text-align: right !important;">{{ reglon.Monto  | mConst}}</td>
+                    </tr>
+              </tbody>
+          </table>
+          <br>
+          <!-- tabla 2-->
+          <table class="table table-responsive table-borderless" id="tabla_doc">
+              <thead>
+                  <tr>
+                    <th style="width:100px; text-align: center;">Reng</th>
+                    <th style="width:100px; text-align: center;">Tipo</th>
+                    <th style="width:150px; text-align: center;">Nro. Documento</th>
+                    <th style="width:250px; text-align: center;">Nro. Fact</th>
+                    <th style="width:550px; text-align: right;">Monto del Dcocumento</th>
+                    <th style="width:550px; text-align: right;">Monto del abonado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let docaso of detalleReport?.FormatosCobPagResult?.DocumentosAsociados">
+                    <td style="width:100px;">{{ docaso.Renglon}}</td>
+                    <td style="width:100px">{{ docaso.Tipo}}</td>
+                    <td style="width:150px">{{ docaso.Documento}}</td>
+                    <td style="width:250px"></td>
+                    <td style="width:550px; text-align: right;">{{ docaso.MontoDocumento | mConst}}</td>
+                    <td style="width:550px; text-align: right;"><span *ngIf="docaso.Tipo!='FACT'">- </span>{{ docaso.MontoAbonado | mConst}}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th style="width:100px"></th>
+                    <th style="width:100px"></th>
+                    <th style="width:100px"></th>
+                    <th style="width:100px"></th>
+                    <th style="width:550px; text-align: right;"> Monto</th>
+                    <th style="width:550px; text-align: right;">{{acum | mConst }}</th>
+                  </tr>
+                </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

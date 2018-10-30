@@ -1,0 +1,33 @@
+<mat-toolbar>  
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toggleSideNav()">
+        <fa-icon [icon]="['fas','bars']" size="lg"></fa-icon>
+    </button>
+    <ng-container *ngIf="!mobileQuery.matches">
+      <button mat-button [routerLink]="['/app/reportes/dashboard']">
+        <fa-icon [icon]="['fas','book']" size="lg"></fa-icon>
+        Reportes
+      </button>
+      <button mat-button [routerLink]="['/app/gestion/dashboard']">
+        <fa-icon [icon]="['fas','exchange-alt']" size="lg"></fa-icon>
+        Gestión
+      </button>
+      <button mat-button [routerLink]="['/app/configuraciones/dashboard']">
+        <fa-icon [icon]="['fas','cog']" size="lg"></fa-icon>
+        Configuración del Sistema
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="mobileQuery.matches">
+        <button  mat-icon-button class="btn btn-danger" [routerLink]="['/app/reportes/dashboard']">
+          <fa-icon [icon]="['fas','book']" size="lg"></fa-icon>
+        </button>
+        <button  mat-icon-button class="btn btn-danger" [routerLink]="['/app/gestion/dashboard']">
+          <fa-icon [icon]="['fas','exchange-alt']" size="lg"></fa-icon>
+        </button>
+        <button  mat-icon-button class="btn btn-danger" [routerLink]="['/app/configuraciones/dashboard']">
+          <fa-icon [icon]="['fas','cog']" size="lg"></fa-icon>
+        </button>
+      </ng-container>
+  </mat-toolbar-row>
+</mat-toolbar>

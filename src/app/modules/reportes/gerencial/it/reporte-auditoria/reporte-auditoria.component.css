@@ -1,0 +1,41 @@
+td, th{
+    padding: 5px 25px;
+  }
+
+  #tab2{
+    margin: 5px;
+  }
+  #tabla_doc th {
+    text-align: center;
+    border: solid 1px #d9d9d9;
+    background: #f5f5f5;
+    border-top: none;
+    width: 290px;
+  }
+  #tabla_doc td {
+    border: solid 1px #d9d9d9;
+    height: 20px;
+  }
+  th {
+    font-weight: normal;
+    color: #868686;
+  }
+  
+    h3{
+      margin: 0;
+    }
+    
+    #aceptar{
+      color: green;
+    }
+    #cancelar{
+      color: red;
+    }
+    #limpiar, #cancelar, #aceptar{
+      margin-right: 5px;
+    }
+  
+
+    .mat-spinner{
+      margin: 15px 175%;
+    }

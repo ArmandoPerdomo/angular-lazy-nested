@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h3>{{formatoadmcompras.titulo}}</h3>
+      <hr>
+
+      <div class="card">
+        <div class="card-body">
+          <form class="form-horizontal" [formGroup]="GeneralesCompras">
+            <div class="form-row">
+              <input type="hidden" class="form-control" formControlName="type" [(ngModel)]='formatoadmcompras.type'>
+              <div class="form-group col-md-2">
+                <label for="nmro">Número:</label>
+              </div>
+              <div class="form-group col-md-2">
+                <span *ngIf="GeneralesCompras.controls.numero.invalid && GeneralesCompras.controls.numero.touched"
+                  class="text-danger">Numero de documento es requerido</span>
+                <input type="number" [ngClass]="{'has-danger': GeneralesCompras.controls.numero.invalid && GeneralesCompras.controls.numero.dirty, 
+                'has-success':GeneralesCompras.controls.numero.valid && GeneralesCompras.controls.numero.dirty 
+              }"
+                  class="form-control" id="inputnmro" formControlName="numero" [(ngModel)]='num' min=0>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputCliente">Enviar a:</label>
+              </div>
+              <div class="form-group col-md-2">
+                <select class="form-control" formControlName="enviar" [(ngModel)]='env' placeholder="Enviar a"
+                  [ngClass]="{'has-danger': GeneralesCompras.controls.enviar.invalid && GeneralesCompras.controls.enviar.dirty, 
+                      'has-success':GeneralesCompras.controls.enviar.valid && GeneralesCompras.controls.enviar.dirty 
+                    }">
+                  <option value="" disabled>Enviar a</option>
+                  <option value="Listado">Detalle</option>
+                  <option value='PDF'>Archivo PDF</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="button" class="btn btn-light" (click)="limpiar()" id="lim">
+                <i class="fa fa-trash-o" id="limpiar" aria-hidden="true"></i>Limpiar Filtros</button>
+              <button type="button" class="btn btn-light" (click)="Aceptar()">
+                <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+              <button type="button" class="btn btn-light" (click)="goBack()">
+                <i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

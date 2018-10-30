@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h3>Disponibilidad flujo caja</h3>
+      <hr>
+      <div class="card">
+        <div class="card-body">
+          <form class="form-horizontal" [formGroup]="FlujoCaja">
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="nmro">Fecha:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <div class="input-group ">
+                  <input class="form-control" placeholder="dd-mm-yyyy" [maxDate]="maxDate" [(ngModel)]="fecha"
+                    formControlName="date" ngbDatepicker #dD="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="nmro">Tasa:</label>
+              </div>
+              <div class="form-group col-md-4">
+                <input type="number" class="form-control" id="inputnmro" formControlName="numero" [(ngModel)]='num' min=0>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="inputCliente">Enviar a:</label>
+              </div>
+              <div class="form-group col-md-2">
+                <select class="form-control" formControlName="enviar" [(ngModel)]='env' placeholder="Enviar a"
+                [ngClass]="{'has-danger': FlujoCaja.controls.enviar.invalid && FlujoCaja.controls.enviar.dirty }">
+                  <option value="" disabled>Enviar a</option>
+                  <option value="Listado">Detalle</option>
+                  <option value='PDF'>Archivo PDF</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <button type="button" class="btn btn-light" (click)="limpiar()">
+                <i class="fa fa-trash-o" id="limpiar" aria-hidden="true"></i>Limpiar Filtros</button>
+              <button type="button" class="btn btn-light" (click)="Aceptar()">
+                <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+                <button type="button" class="btn btn-light" (click)="goBack()">
+                  <i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

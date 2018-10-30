@@ -1,0 +1,9 @@
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#formtitle{
+  border-bottom: 2px solid #d9d9d9;
+}

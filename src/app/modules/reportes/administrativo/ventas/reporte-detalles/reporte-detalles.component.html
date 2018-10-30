@@ -1,0 +1,175 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+          <div style="padding: 20px 0px 0px 0px;">
+              <div class="row">
+                  <div class="col-md-8">
+                      <h3>{{titulo}}</h3>
+                  </div>
+                  <div class="col-md-2">
+                      <select class="form-control" placeholder="Enviar a: ">
+                          <option value="PDF">Archivo PDF</option>
+                      </select>
+                  </div>
+                  <div class="col-md-2">
+                      <button type="button" class="btn btn-light" (click)="createPdf(detalleReport)"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+                      <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+                  </div>
+              </div>
+          </div>
+          <hr>
+          <div class="card">
+            <div class="card-body">
+
+              <!-- Diseño del Encabezado-->
+              <div class="row" id="row1">
+              
+                <div class="form-group col-md-3">
+                  <img class="logi" src="assets\img\logoconstrutodo.png">
+                </div>
+              
+                <div class="form-group col-md-5">
+                  <br><br><br>
+                  <h5 style="text-align: justify">
+                    Av. Los Pinos, entre calle Pomagas y los Mango, Casa Nro. 35
+                    Urb. La Florida Norte, Zona Postal 1050 Ofi. +58212731.2087
+                  </h5>
+                </div>
+                  <div class="form-group col-md-4">
+                      <br>
+                    <p *ngIf="titulo == 'Nota de entrega digital'"><br></p>
+                    <table class="table table-responsive table-borderless">
+                      <tr>
+                        <td><b>{{titulo_detalle}}:</b></td>
+                        <td style="text-align: right" *ngIf="titulo_detalle != 'Nro. Control'">{{ detalleReport?.FormatosResult?.Encabezado?.Numero}}</td>
+                        <td style="text-align: right"  *ngIf="titulo_detalle == 'Nro. Control'">{{ detalleReport?.FormatosResult?.Encabezado?.NumControl}}</td>
+                      </tr>
+                      <tr *ngIf="titulo == 'Factura digital'">
+                        <td><b>Forma Libre: </b></td>
+                        <td ></td>
+                      </tr>
+                      <tr>
+                        <td><b>Fecha de Emisión:</b></td>
+                        <td style="text-align: right" >{{ detalleReport?.FormatosResult?.Encabezado.FechaEmis | dConst}}</td>
+                      </tr>
+                      <tr *ngIf="titulo == 'Factura digital'">
+                          <td><b>Factura Nro:</b> </td>
+                          <td style="text-align: right" >{{ detalleReport?.FormatosResult?.Encabezado.Numero}}</td>
+                        </tr>
+                      <tr *ngIf="titulo != 'Factura digital' && titulo != 'Nota de entrega digital'  && titulo != 'Nota de despacho digital'">
+                          <td><b>Condición de Pago:</b></td>
+                          <td style="text-align: right" >{{ detalleReport?.FormatosResult?.Encabezado.CondicionPago}}</td>
+                      </tr>
+                      <tr  *ngIf="titulo != 'Nota de entrega digital'"> <!-- NOTA DE ENTREGA !-->
+                        <td><b>Vendedor:</b></td>
+                        <td style="text-align: right" >{{ detalleReport?.FormatosResult?.Encabezado.Vendedor}}</td>
+                      </tr>
+                      <tr *ngIf="titulo != 'Nota de entrega digital'">
+                        <td> <b>Teléfono:</b></td>
+                        <td style="text-align: right" >{{ detalleReport?.FormatosResult?.Encabezado.TelefonoVen}}</td>
+                      </tr>
+                    </table>
+                  </div>
+              </div>
+
+              <!-- informacion del cliente-->
+              <div class="card">
+                <div class="card-body">
+                  <table style="margin: 5px" >
+                    <tr>
+                      <td width="250px" >Nombre o Razón Social:</td>
+                      <td>{{ detalleReport?.FormatosResult?.Encabezado.RazonSocial}}</td>
+                    </tr>
+                    <tr>
+                      <td>Rif C.I:</td>
+                      <td>{{ detalleReport?.FormatosResult?.Encabezado.Rif}}</td>
+                    </tr>
+                    <tr>
+                      <td>Domicilio Fiscal:</td>
+                      <td>{{ detalleReport?.FormatosResult?.Encabezado.DomicioFiscal}}</td> 
+                    </tr>
+                    <tr>
+                      <td>Teléfono:</td>
+                      <td>{{ detalleReport?.FormatosResult?.Encabezado.TelefonoCli}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>  
+              <br>
+              <!-- Tabla de facturas-->
+              <div class="row" id="tab2">
+                <table class="table table-responsive table-borderless" id=tabla_doc>
+                 <thead>
+                  <tr>
+                    <th style="width:230px; text-align: center">Código</th>
+                    <th style="width:800px; text-align: center">Concepto o Descripción</th>
+                    <th style="width:100px; text-align: center">Unid.</th>
+                    <th style="width:100px; text-align: right">Cant.</th>
+                    <th style="width:200px; text-align: right">Prec. Uni.</th>
+                    <th style="width:120px; text-align: center">Desc%</th>
+                    <th style="width:230px; text-align: right">Total</th>
+                  </tr>
+                 </thead> 
+                 <tbody>
+                    <tr *ngFor="let reglon of detalleReport?.FormatosResult?.Renglones">
+                      <td style="width:230px; text-align: left">{{ reglon.Codigo}}</td>
+                      <td style="width:800px; text-align: left">{{ reglon.Descripcion}}</td>
+                      <td style="width:100px; text-align: center">{{ reglon.Unidad}}</td>
+                      <td style="width:100px; text-align: right">{{ serviceMoney.transformarMoneda(reglon.Cantidad)}}</td>
+                      <td style="width:200px; text-align: right">{{ serviceMoney.transformarMoneda(reglon.Precio)}}</td>
+                      <td style="width:120px; text-align: center">{{ reglon.Descuento}}</td>
+                      <td style="width:230px; text-align: right">{{ serviceMoney.transformarMoneda(reglon.Total)}}</td>
+                    </tr>
+                 </tbody>
+               
+                </table>
+              </div>
+              <br>
+              <br>
+              <!-- Tabla de Observaciones-->
+              <div class="pull-left">
+                <div class="row ">
+                  <table>
+                    <tr>
+                      <td><b>Observaciones:</b></td>
+                    </tr>
+                    <tr>
+                      <td *ngIf="titulo == 'Factura digital'" >{{ detalleReport?.FormatosResult?.Encabezado.Observaciones}}  </td>
+                    </tr>
+                    <tr>
+                      <td *ngIf="titulo == 'Factura digital'" >{{ detalleReport?.FormatosResult?.Encabezado.FormaPago }}</td>
+                    </tr>         
+                  </table>
+                </div>
+              </div>
+
+              <!-- Tabla de montos-->
+              <div class="pull-right">
+                <div class="row">
+                  <table>
+                    <tr>                              
+                      <td><b>Descuento: %</b></td>
+                      <td class="monto">{{ serviceMoney.transformarMoneda(detalleReport?.FormatosResult?.Encabezado.Descuento)}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>SubTotal:</b></td>
+                        <td class="monto">{{ serviceMoney.transformarMoneda(detalleReport?.FormatosResult?.Encabezado.MontoSubTotal)}}</td>
+                    </tr>
+                      <tr>
+                        <td><b>Iva 12.0: %</b></td>
+                        <td class="monto">{{ serviceMoney.transformarMoneda(detalleReport?.FormatosResult?.Encabezado.MontoIva)}}</td>
+                      </tr>
+                      <tr>
+                      <td><b> Neto:</b></td>
+                      <td class="monto">{{ serviceMoney.transformarMoneda(detalleReport?.FormatosResult?.Encabezado.Neto)}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+

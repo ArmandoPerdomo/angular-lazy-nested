@@ -1,0 +1,32 @@
+{
+  "/ConstrutodoWsMvc/*":{
+    "target": {
+      "host": "aklara.ddns.net",
+      "protocol": "http",
+      "port": 8000
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  },
+  "/WsProfitStreet/*":{
+    "target": {
+      "host": "aklara.ddns.net",
+      "protocol": "http",
+      "port": 8000
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  },
+  "/api/v1/privates/*":{
+    "target": {
+      "host": "aklara.ddns.net",
+      "protocol": "http",
+      "port": 4200
+    },
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "info"
+  }
+}

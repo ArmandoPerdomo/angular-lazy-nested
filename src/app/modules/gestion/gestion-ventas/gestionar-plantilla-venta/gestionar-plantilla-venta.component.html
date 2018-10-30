@@ -1,0 +1,54 @@
+<div>
+	<h2>Plantilla de venta</h2>
+	<form [formGroup]="formulario">
+		<div class="containerPlantilla">
+			<div class="container-fluid justify-content-end form-group marginTop">
+				<div class="row">
+					<div class="col-md-5">
+						<div class="row">
+
+							<div class="col-md-2">
+							<label class="col-form-label">Número:</label>
+							</div>
+
+							<div class="col-md-8">
+							<input type="text" class="form-control" id="numeroBuscar" #box (keyup.enter)="onEnter(box.value)">
+							<!--<select id="inputState" class="form-control" formControlName="numeroBuscar" required #box (keyup.enter)="onEnter(box.value)">
+								<option value='' disabled selected>Seleccione:</option>
+								<option *ngFor= "let lis of listaPlant" [ngValue]="lis.sCodigo"  ngDefaultControl maxlength="20">{{lis.sCodigo}}</option>
+							</select>-->
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-md-7 textAlignRight">
+						<app-barra-tarea #barra (PasameElEvento)="recibirEvento($event)"></app-barra-tarea>
+					</div>
+				</div>
+			<br>
+				<div>
+					<ngb-tabset>
+						<ngb-tab title="Generales">
+							<ng-template ngbTabContent>
+								<div>
+									<app-componente-generales #generales [mostrarStatus]="false">
+
+									</app-componente-generales>
+								</div>
+							</ng-template>
+						</ngb-tab>
+
+						<ngb-tab title="Adicionales">
+							<ng-template ngbTabContent>
+								<div>
+									<app-componente-adicionales></app-componente-adicionales>
+								</div>
+							</ng-template>
+						</ngb-tab>
+					</ngb-tabset>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

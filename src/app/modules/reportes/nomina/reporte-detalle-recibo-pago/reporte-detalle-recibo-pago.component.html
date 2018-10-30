@@ -1,0 +1,106 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div style="padding: 20px 0px 0px 0px;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3>Recibos de Pago</h3>
+                    </div>
+                    <div class="col-md-2">
+                        <select class="form-control" placeholder="Enviar a: ">
+                            <option value="PDF">Archivo PDF</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="button" class="btn btn-light" (click)="createPdf()"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+                        <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+                <!-- informacion del cliente-->
+            <div class="card">
+                <div class="card-body">
+                    <form  [formGroup]="detalle">
+                        <table class="table table table-borderless" style="margin: 10px" >
+                            <tr>
+                                <td class="padding-center">Trabajador:</td>
+                                <td class="padding-center" colspan="3">{{ detalleReport?.RepReciboPagoResult.Recibos[0].SApellido }}</td>
+                                <td class="padding-center">Cédula:</td>
+                                <td class="padding-center">{{ detalleReport?.RepReciboPagoResult.Recibos[0].CI }}</td>
+                                <td class="padding-center">Fecha Ingreso:</td>
+                                <td class="padding-center">{{ detalleReport?.RepReciboPagoResult.Recibos[0].Fecha_Ingreso | dConst}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding-center">Sueldo Mensual:</td>
+                                <td class="padding-center">{{ detalleReport?.RepReciboPagoResult.Recibos[0].Sueldo_Men | mConst }}</td>
+                                <td class="padding-center">Departamento:</td>
+                                <td class="padding-center">{{ detalleReport?.RepReciboPagoResult.Recibos[0].Departamento }}</td>
+                                <td class="padding-center">Cargo:</td>
+                                <td class="padding-center">{{ detalleReport?.RepReciboPagoResult.Recibos[0].Cargo.Codigo}} - {{ detalleReport?.RepReciboPagoResult.Recibos[0].Cargo.Descripcion}}</td>
+                            </tr>
+                            <tr>
+                                <td class="padding-center">Periodo Desde:</td>
+                                <td class="padding-center">{{ itemRcbo.Periodo_D | dConst}}</td>
+                                <td class="padding-center">Periodo Hasta:</td>
+                                <td class="padding-center">{{ itemRcbo.Periodo_H | dConst}}</td>
+                                <td class="padding-center">Nro Recibo:</td>
+                                <td>
+                                    <app-combo-contrutodo [servicio]="reciboCallBack" [tipoLista]=1 [hideCode]="true" [formControlName]="'recibo'" [selectedItemIds]="rcbo" (codigo)="changeReciboCodigo($event)"></app-combo-contrutodo>
+                                </td>
+                                <td class="padding-center">Fecha:</td>
+                                <td class="padding-center">{{ itemRcbo.Periodo_H | dConst }}</td>
+                            </tr>
+                        </table>
+                    </form>
+                    <hr>
+                    <!-- Tabla de facturas-->
+                    <div class="row" id="tab2" >
+                        <table class="table table-responsive table-borderless" id=tabla_doc>
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Descripción</th>
+                                    <th class="right">Valor Auxiliar</th>
+                                    <th class="right">Asignaciones</th>
+                                    <th class="right">Deducciones</th>
+                                    <th class="right">Neto a Cobrar</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="right">Total Trabajador:</th>
+                                    <th class="right">{{ acumasig | mConst }}</th>
+                                    <th class="right">{{ acumde | mConst }}</th>
+                                    <th class="right">{{ acumneto | mConst }}</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <tr *ngFor="let rgtro of itemRcbo?.Registro">
+                                    <td> {{ rgtro.Codigo }}</td>
+                                    <td> {{ rgtro.Descripcion }}</td>
+                                    <td class="right"> {{ rgtro.Valor_Aux | mConst }} día(s)</td>
+                                    <td class="right"> {{ rgtro.Asignaciones | mConst }}</td>
+                                    <td class="right"> - {{ rgtro.Deducciones |mConst }}</td>
+                                    <td class="right">{{ rgtro.Asignaciones-rgtro.Deducciones |mConst }}</td>                                   
+                                </tr>
+                                <tr *ngIf="!registro">
+                                    <td colspan="6"> Seleccione un recibo</td>                                 
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>  
+            <br>
+            
+                    
+        </div>
+    </div>
+</div>
+
+
+  
+  

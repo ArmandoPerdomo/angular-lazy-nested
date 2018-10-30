@@ -1,0 +1,80 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h3>Movimientos de banco por número</h3>
+        <div class="card">
+          <div class="card-body">
+              <form class="form-horizontal" [formGroup]="MBanco">
+  
+                    <div class="form-row">
+                      <div class="form-group col-md-2">
+                        <label for="nmro">Número:</label>
+                      </div>
+                      <div class="form-group col-md-2">
+                        <span *ngIf="MBanco.controls.numeroD.invalid && MBanco.controls.numeroD.touched" class="text-danger">Numero de documento es requerido</span>
+                        <input type="number" class="form-control" id="inputnmro" formControlName="numeroD" [(ngModel)]='numD' min=0 
+                        [ngClass]="{'has-danger': MBanco.controls.numeroD.invalid && MBanco.controls.numeroD.dirty, 
+                        'has-success':MBanco.controls.numeroD.valid && MBanco.controls.numeroD.dirty  }">
+                      </div>
+                      <div class="form-group col-md-2">
+                          <span *ngIf="MBanco.controls.numeroH.invalid && MBanco.controls.numeroH.touched" class="text-danger">Numero de documento es requerido</span>
+                          <span *ngIf="!campoNumero" class="text-danger"> Campo no puede ser menor</span>
+                          <input type="number" class="form-control" id="inputnmro" formControlName="numeroH" [(ngModel)]='numH' min=0 
+                          [ngClass]="{'has-danger': !campoNumero || MBanco.controls.numeroH.invalid && MBanco.controls.numeroH.dirty, 
+                        'has-success': campoNumero || MBanco.controls.numeroH.valid && MBanco.controls.numeroH.dirty}">
+                      </div>
+                    </div>
+  
+                  <div class="form-row">
+                    <div class="form-group col-md-2">
+                      <label for="nmro">Fecha:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <span *ngIf="MBanco.controls.date.invalid && MBanco.controls.date.touched" class="text-danger"> Campo Requerido</span>
+                      <div class="input-group ">
+                        <input class="form-control" placeholder="yyyy-mm-dd" [maxDate]="maxDate" [(ngModel)]="fecha" formControlName="date"
+                          ngbDatepicker #dD="ngbDatepicker" [ngClass]="{'has-danger': MBanco.controls.date.invalid && MBanco.controls.date.dirty, 
+                          'has-success':MBanco.controls.date.valid && MBanco.controls.date.dirty 
+                        }">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                            <i class="fa fa-calendar"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+  
+  
+                  <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputCliente">Enviar a:</label>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select class="form-control" formControlName="enviar" [(ngModel)]='env' placeholder="Enviar a" [ngClass]="{'has-danger': MBanco.controls.enviar.invalid && MBanco.controls.enviar.dirty, 
+                        'has-success':MBanco.controls.enviar.valid && MBanco.controls.enviar.dirty 
+                      }">
+                          <option value="" disabled>Enviar a</option> 
+                          <option value="Listado">Detalle</option>
+                          <option value='PDF'>Archivo PDF</option>
+                        </select>
+                    </div>
+                  </div>
+  
+                  <div class="form-row">
+                    <button type="button" class="btn btn-light" (click)="limpiar()">
+                      <i class="fa fa-trash-o" id="limpiar" aria-hidden="true"></i>Limpiar Filtros</button>
+                    <button type="button" class="btn btn-light" (click)="Aceptar()">
+                      <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+                      <button type="button" class="btn btn-light" (click)="goBack()">
+                        <i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button>
+                  </div>
+              </form>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+</div>
+  

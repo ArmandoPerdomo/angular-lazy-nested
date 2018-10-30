@@ -1,0 +1,26 @@
+
+  <div class="card" *ngIf="ListaDocumentosClientes">
+    <div class="card-body">
+      <table id=tabla_doc>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Número</th>
+            <th>Fecha de emisión</th>
+            <th  style="text-align: right">Total</th>
+          </tr>
+          <tr class="gg" *ngFor="let lista of ListaDocumentosClientes.Lista" (click)="numEventEmit(lista.iNumero)" (dblclick)="doubleclick()"
+              (click) = "filaSeleccionada($event.currentTarget)"> <!-- (dblclick)-->
+            <td style="text-align: center">{{ lista.sCodigo }}</td>
+            <td style="text-align: center">{{ lista.sDescripcion}}</td>
+            <td style="text-align: center">{{ lista.iNumero}}</td>
+            <td style="text-align: center">{{lista.sFechaEmision | dConst}}</td>
+            <td style="text-align: right">{{ lista.dTotal | mConst}}</td>
+          </tr>
+          <tr *ngIf="!registro">
+              <td colspan="5">No hay información para mostrar</td>
+          </tr>
+        </table>
+    </div>
+  </div>
+

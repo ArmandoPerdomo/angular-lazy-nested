@@ -1,0 +1,11 @@
+
+
+#aceptar{
+  color: green;
+}
+#cancelar {
+  color: red;
+}
+#limpiar, #cancelar, #aceptar{
+  margin-right: 5px;
+}

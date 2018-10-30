@@ -1,0 +1,28 @@
+#hr {
+  vertical-align: bottom;
+}
+.fa-check {
+  color: green;
+  padding-right: 4px;
+}
+.fa-arrow-left {
+  color: red;
+  padding-right: 4px;
+}
+#aceptar {
+  color: green;
+}
+#cancelar {
+  color: red;
+}
+#cancelar,
+#aceptar,
+#limpiar {
+  margin-right: 5px;
+}
+#lim {
+  margin-left: -0.5%;
+}
+button {
+  margin-right: 5px;
+}

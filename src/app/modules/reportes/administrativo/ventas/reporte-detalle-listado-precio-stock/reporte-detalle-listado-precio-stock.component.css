@@ -1,0 +1,36 @@
+#tabla_doc {
+    width: 100%;
+  }
+  .fa-check{
+    color: green;
+    padding-right: 4px;
+  }
+  .fa-arrow-left{
+    color: red;
+    padding-right: 4px;
+  }
+  h3 {
+    margin: 0;
+  }
+  #tab {
+    padding: 5px;
+  }
+  #tab2{
+    margin: 3px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  .ngx-datatable.material.single-selection .datatable-body-row.active:hover, .ngx-datatable.material.single-selection .datatable-body-row.active:hover .datatable-row-group, .ngx-datatable.material.multi-selection .datatable-body-row.active:hover, .ngx-datatable.material.multi-selection .datatable-body-row.active:hover .datatable-row-group, .ngx-datatable.material.multi-click-selection .datatable-body-row.active:hover, .ngx-datatable.material.multi-click-selection .datatable-body-row.active:hover .datatable-row-group {
+    color: #000;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.ngx-datatable.material.single-selection .datatable-body-row.active, .ngx-datatable.material.single-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.material.multi-selection .datatable-body-row.active, .ngx-datatable.material.multi-selection .datatable-body-row.active .datatable-row-group, .ngx-datatable.material.multi-click-selection .datatable-body-row.active, .ngx-datatable.material.multi-click-selection .datatable-body-row.active .datatable-row-group{  background-color: red;
+  color: #000;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.noStyle{
+  background-color: transparent;
+  border: solid 1px transparent;
+}
+ 

@@ -1,0 +1,43 @@
+td{
+  width: 500px;
+}
+
+table{
+  margin-left: 60px;
+  margin-bottom: 30px;
+}
+
+h4{
+  padding-left: 30px;
+}
+.titulo{
+  width: 50px;
+}
+.linea{
+  width: 2000px;
+  vertical-align: top;
+}
+.principal{
+  border: 0 0 0 0;
+  margin-left: 15px;
+  margin-right: 0px;
+}
+.generales{
+  margin-left: 15px;
+}
+.boton{
+  text-align: right;
+  padding-right: 100px;
+}
+.form-control{
+  width: 400px;
+}
+[type=reset], [type=submit], button, html [type=button]{
+  border: solid 0.5px #d9d9d9;
+  border-radius: 5px;
+  background: #f5f5f5;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}

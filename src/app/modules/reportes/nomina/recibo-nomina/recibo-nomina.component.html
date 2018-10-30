@@ -1,0 +1,142 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <h3>{{tilReciboNomina}}</h3>
+            <hr>
+            <div class="card" stu>
+                <div class="card-body">
+                    <form class="con" [formGroup]="ReciboPago">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="nmro">Recibo:</label>
+                            </div>
+
+                            <div class=" form-group col-md-4">
+                                <span *ngIf="ReciboPago.controls.reciboD.invalid && ReciboPago.controls.reciboD.touched" class="text-danger"> Campo Requerido</span>
+                                <div class="input-group ">
+                                    <input type="number" class="form-control" min="0" [ngClass]="{
+                                                'has-danger':  ReciboPago.controls.reciboD.invalid && ReciboPago.controls.reciboD.dirty, 
+                                                'has-success':ReciboPago.controls.reciboD.valid && ReciboPago.controls.reciboD.dirty 
+                                            }" placeholder="NÚMERO" class="form-control" formControlName="reciboD" [(ngModel)]='recD'>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span *ngIf="ReciboPago.controls.reciboH.invalid && ReciboPago.controls.reciboH.touched" class="text-danger"> Campo Requerido</span>
+                                <span *ngIf="!campoNumero" class="text-danger"> Campo no puede ser menor</span>
+                                <div class="input-group ">
+                                    <input type="number" class="form-control" min="recD" [ngClass]="{
+                                            'has-danger': !campoNumero || ReciboPago.controls.reciboH.invalid && ReciboPago.controls.reciboH.dirty , 
+                                            'has-success': campoNumero || ReciboPago.controls.reciboH.valid && ReciboPago.controls.reciboH.dirty 
+                                        }" placeholder="NÚMERO" class="form-control"  formControlName="reciboH" [(ngModel)]='recH'>
+                                    </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="nmro">Trabajador:</label>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <span *ngIf="ReciboPago.controls.trabajador.invalid && ReciboPago.controls.trabajador.touched" class="text-danger"> Debe elegir un trabajador</span>
+
+                                <app-combo-contrutodo [ngClass]="{'has-danger': ReciboPago.controls.trabajador.invalid && ReciboPago.controls.trabajador.dirty, 
+                                'has-success':ReciboPago.controls.trabajador.valid && ReciboPago.controls.trabajador.dirty }" [servicio]="trabajadorCallback" [tipoLista]=2 
+                                [formControlName]="'trabajador'" [selectedItemIds]="trab" (codigo)="changeReciboTrabajador($event)" (codigo)="cleanReciboTrabajador($event)"></app-combo-contrutodo>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="nmro">Fecha:</label>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <span *ngIf="ReciboPago.controls.fechaD.invalid && ReciboPago.controls.fechaD.touched" class="text-danger"> Campo Requerido</span>
+                                <div class="input-group ">
+                                    <input class="form-control" [ngClass]="{
+                                                'has-danger': ReciboPago.controls.fechaD.invalid && ReciboPago.controls.fechaD.dirty , 
+                                                'has-success':ReciboPago.controls.fechaD.valid && ReciboPago.controls.fechaD.dirty}" placeholder="dd-mm-yyyy"
+                                                [maxDate]="maxDate" [(ngModel)]="fecD" formControlName="fechaD" ngbDatepicker #dD="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div *ngIf="ReciboPago.controls.fechaH.invalid && ReciboPago.controls.fechaH.touched" class="text-danger">
+                                    <span *ngIf="ReciboPago.controls.fechaH.invalid" class="text-danger">Seleccione una fecha mayor</span>
+                                    <span *ngIf="ReciboPago.controls.fechaH.required" class="text-danger">Campo Requerido</span>
+                                </div>
+                                <div class="input-group ">
+                                    <input class="form-control" [ngClass]="{
+                                                'has-danger': ReciboPago.controls.fechaH.invalid && ReciboPago.controls.fechaH.dirty , 
+                                                'has-success':ReciboPago.controls.fechaH.valid && ReciboPago.controls.fechaH.dirty}" placeholder="dd-mm-yyyy"
+                                                [maxDate]="maxDate" [minDate]="fecD" [(ngModel)]="fecH" formControlName="fechaH" ngbDatepicker #dH="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" (click)="dH.toggle()" type="button">
+                                            <i class="fa fa-calendar"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <label for="inputCliente">Enviar a:</label>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <select class="form-control" formControlName="enviar" [(ngModel)]='env' placeholder="Enviar a" 
+                                [ngClass]="{'has-danger': ReciboPago.controls.enviar.invalid && ReciboPago.controls.enviar.dirty, 
+                                'has-success':ReciboPago.controls.enviar.valid && ReciboPago.controls.enviar.dirty }">
+                            <option value="" disabled>Enviar a</option> 
+                            <option value="Listado">Detalle</option>
+                            <option value="PDF">Archivo PDF</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <button type="button" class="btn btn-light lim" (click)="limpiar()">
+                                <i class="fa fa-trash-o" id="limpiar" aria-hidden="true"></i>Limpiar Filtros</button>
+                            <button type="button" class="btn btn-light" (click)="Aceptar()">
+                                <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+                            <button type="button" class="btn btn-light" (click)="goBack()">
+                                <i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button>
+                        </div>
+                    </form>
+                    
+                    <div *ngIf="carga">
+                        <br>
+                        <table class="table table-responsive" id=tabla_doc>
+                            <thead>
+                                <tr>
+                                    <th>Nro. Recibo</th>
+                                    <th>Periodo desde</th>
+                                    <th>Periodo hasta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="gg"  (click) = "filaSeleccionada($event.currentTarget)"  *ngFor="let rgtro of reciboTrabajadorOut?.RepReciboPagoResult.Recibos"
+                                (click)="numEventEmit(rgtro.N_Recibo)"  (dblclick)="doubleclick()">
+                                    <td>{{ rgtro.N_Recibo }}</td>
+                                    <td>{{ rgtro.Periodo_D | dConst }}</td>
+                                    <td>{{ rgtro.Periodo_H | dConst }}</td>
+                                </tr>
+                                <tr *ngIf="!registro">
+                                    <td colspan="3">No hay información para mostrar</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+    
+

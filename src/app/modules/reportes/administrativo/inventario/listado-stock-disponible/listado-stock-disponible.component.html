@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div style="padding: 20px 0px 0px 0px;">
+        <div class="row">
+          <div class="col-md-8">
+            <h3>{{titListStock}}</h3>
+          </div>
+
+          <div class="col-md-2">
+            <select class="form-control" placeholder="Enviar a: ">
+              <option value='PDF'>Archivo PDF</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <button type="button" class="btn btn-light" (click)="accept()">
+              <i class="fa fa-check" id="accept" aria-hidden="true"></i>Aceptar</button>
+            <button type="button" class="btn btn-light" (click)="goBack()">
+              <i class="fa fa-arrow-left" id="cancel" aria-hidden="true"></i>Volver</button>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row" id="tab2">
+          <ngx-datatable id="tabla_doc" class="material" [rows]="rows" [columnMode]="'force'" [summaryHeight]="'auto'"
+            [headerHeight]="60" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [loadingIndicator]="loadingIndicator"
+            [scrollbarH]="true">
+
+            <ngx-datatable-column name="Código" prop="Co_art" width="150"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Descripción" prop="Art_des" width="400"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Unid." prop="Uni_vta" width="70"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Stock Guarenas" prop="Stock_Disp" width="70">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Comprometido" prop="Stock_Comp" width="70">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Actual" prop="Stock_act" width="70">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right; margin-right: 15%">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

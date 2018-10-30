@@ -1,0 +1,31 @@
+
+.fa-check{
+  color: green;
+  padding-right: 4px;
+}
+.fa-arrow-left{
+  color: red;
+  padding-right: 4px;
+}
+#tab {
+  margin: 3px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+h3{
+  margin:0;
+}
+
+
+ #myTable1{
+  width: 100%;
+}
+
+
+
+#cancelar, #aceptar{
+  margin-right: 5px;
+}
+.ngx-datatable.material .datatable-header .datatable-header-cell{
+  text-align: center;
+}

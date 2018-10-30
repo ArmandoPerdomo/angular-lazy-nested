@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div style="padding: 20px 0px 0px 0px;">
+        <div class="row">
+          <div class="form-group col-md-8">
+            <h3>{{ title }}</h3>
+          </div>
+          <div class="form-group col-md-2">
+              <select class="form-control" placeholder="Enviar a: ">
+                <option>Archivo PDF</option>
+              </select>
+          </div>
+          <div class="form-group col-md-2">
+              <button type="button" class="btn btn-light"  (click)="createPdf()"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+              <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <hr>
+      <div class="card">
+        <div class="card-body">
+          
+          <p-treeTable [value]="dataOut" id=treetable>
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th style=" width: 20%;">Código</th>
+                      <th style=" width: 50%">Descripción</th>
+                      <th class="right">Saldo incial</th>
+                      <th class="right">Debe</th>
+                      <th class="right">Haber</th>
+                      <th class="right">Saldo actual</th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                  <tr>
+                      <td class="code">
+                          <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                          {{rowData.code}}
+                      </td>
+                      <td>{{rowData.desc}}</td>
+                      <td class="right">{{rowData.saldoInicial | mConst}}</td>
+                      <td class="right">{{rowData.debe | mConst}}</td>
+                      <td class="right">{{rowData.haber | mConst}}</td>
+                      <td class="right">{{rowData.saldoActual | mConst}}</td>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="footer" let-columns>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th style="text-align: right !important;">{{ getSaldoIAcum() | mConst }}</th>
+                  <th style="text-align: right !important;">{{ getDebeAcum() | mConst }}</th>
+                  <th style="text-align: right !important;">{{ getHaberAcum() | mConst }}</th>
+                  <th style="text-align: right !important;">{{ getSaldoAAcum() | mConst }}</th>
+                </tr>
+            </ng-template>
+          </p-treeTable>
+          <br>
+          <table class="" >
+            <tr>
+              <td class="bold">ACTIVO:</td>
+              <td>{{ getActivo() | mConst }}</td>
+              <td class="bold">PASIVO + CAPITAL:</td>
+              <td>{{ getPasivoCapital() | mConst }}</td>
+              <td class="bold">INGRESOS - EGRESOS:</td>
+              <td>{{ getIngresoEgreso() | mConst }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

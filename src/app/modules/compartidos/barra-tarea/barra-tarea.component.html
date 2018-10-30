@@ -1,0 +1,46 @@
+<div class="btn-group btn-group-justified btn-group-sm" role="group" aria-label="Justified button group">
+	
+		<div class="btn-group" role="group">
+			<button type="button" (click)="btPrimero()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Primero"><i class="fa fa-fast-backward fa-lg"></i></button>
+		</div>
+
+		<div class="btn-group" role="group">
+			<button type="button" (click)=" btSiguiente()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Siguiente"><i class="fa fa-backward fa-lg"></i></button>
+		</div>
+
+		<div class="btn-group" role="group">
+			<button type="button" (click)="btAnterior()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Anterior"><i class="fa fa-forward fa-lg"></i></button>
+		</div>
+
+		<div class="btn-group" role="group">
+			<button type="button" (click)="btUltimo()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Ultimo"><i class="fa fa-fast-forward fa-lg"></i></button>
+		</div>
+
+		<div *ngIf="mostrar" class="btn-group" role="group">
+			<button type="button" (click)="btNuevo()" class="btn btn-default btn-responsive styleButton btnSeparador" placement="top" ngbTooltip="Nuevo"><i class="fa fa-file fa-lg"></i></button>
+		</div>
+
+		<div *ngIf="mostrar" class="btn-group" role="group">
+			<button type="button" (click)="btGuardar()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Guardar"><i class="fa fa-save fa-lg"></i></button>
+		</div>
+
+		<div *ngIf="mostrar" class="btn-group" role="group">
+			<button type="button" (click)="btRestaurar()" class="btn btn-default btn-responsive styleButton"placement="top" ngbTooltip="Restaurar"><i class="fa fa-undo fa-lg"></i></button>
+		</div>
+
+		<div class="btn-group" role="group">
+			<button type="button" (click)="btImprimir()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Imprimir"><i class="fa fa-print fa-lg"></i></button>
+		</div>
+
+		<div *ngIf="mostrar" class="btn-group" role="group">
+			<button type="button" (click)="btAgregarRenglon()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Agregar renglón"><i class="fa fa-arrow-up fa-lg"></i></button>
+		</div>
+
+		<div *ngIf="mostrar" class="btn-group" role="group">
+			<button type="button" (click)="btEliminarRenglon()" class="btn btn-default btn-responsive styleButton" placement="top" ngbTooltip="Eliminar renglón"><i class="fa fa-arrow-down fa-lg"></i></button>
+		</div>
+
+		<div class="btn-group" role="group">
+			<button type="button" (click)="btCerrar()" class="btn btn-default btn-responsive styleButton btnSalir btnSeparador" placement="top" ngbTooltip="Salir"><i class="fa fa-share-square fa-lg"></i></button>
+		</div>
+	</div>

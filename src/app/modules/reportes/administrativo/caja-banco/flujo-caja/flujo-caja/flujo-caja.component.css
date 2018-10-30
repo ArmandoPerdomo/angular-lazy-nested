@@ -1,0 +1,28 @@
+#principal{
+  margin-left: 0;
+  border: 1px solid #868686;
+  border-radius: 8px 8px;
+padding-bottom: 2%;
+width: 70%;
+}
+.fa-times{
+  color: red ;
+}
+#row1{
+padding: 10px;
+}
+strong{
+  color: #E53835;
+  font-size: 30px;
+}
+#aceptar{
+  color: green;
+}
+#cancelar{
+  color:red;
+}
+
+
+#limpiar, #cancelar, #aceptar{
+  margin-right: 5px;
+}

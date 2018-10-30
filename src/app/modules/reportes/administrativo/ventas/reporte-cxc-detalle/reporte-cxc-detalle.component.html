@@ -1,0 +1,165 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+        <div style="padding: 20px 0px 0px 0px;">
+      <div class="row">
+        <div class="form-group col-md-8">
+          <h3>Compra por cliente CxC</h3>
+        </div>
+        <div class="form-group col-md-2">
+            <select class="form-control" placeholder="Enviar a: ">
+              <option>Archivo PDF</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2">
+            <button type="button" class="btn btn-light"  (click)="createPdf()"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+            <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+        </div>
+      </div>
+      <hr>
+      <div class="row" id="tab2">
+   
+            <ngx-datatable   id="myTable1"
+                #myTable
+                class='material expandable'
+                [rows]="detalleReport?.RepCxCPorClienteResult?.Clientes"
+           
+                [groupRowsBy]="'Co_cli'"
+                [columnMode]="'flex'"
+                [scrollbarH]="true"
+                [headerHeight]="40"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [limit]="4"
+                [groupExpansionDefault]="true"> 
+              
+              <ngx-datatable-group-header  #myGroupHeader [rowHeight]="100" (toggle)="onDetailToggle($event)">
+                  <ng-template let-group="group"   let-expanded="expanded" ngx-datatable-group-header-template>
+                    <div style="padding-left:8px;">
+
+                        <button
+                        style="background: white; border: 0;"
+                         (click)="toggleExpandGroup(group)"
+                           [class.datatable-icon-right]="!expanded"
+                           [class.datatable-icon-down]="expanded"
+                         >
+                         <b> <span style="text-align: left">{{group.value[0].Co_cli}} - {{group.value[0].Cli_des}}</span></b>
+                       </button>           
+                    </div>
+                  </ng-template>
+                </ngx-datatable-group-header>
+           
+      
+                <ngx-datatable-column name="Proveedor/Tipo de Doc."  [flexGrow]="1"  prop="CxC">
+                  <div>
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" frozenLeft="True" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                      <p id="tipoid" *ngFor="let v of value; let i = index">
+                          <span [class.text-title]="i == 0"> {{v.Tipo_doc}}</span>
+                      </p> 
+                    </ng-template>  
+                  </div>          
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Número" prop="CxC" [flexGrow]="0.4" >
+                  <div >
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                    
+                      <p id="numid" *ngFor="let v of value; let i = index">
+                          <span [class.text-title]="i == 0"> {{v.Nro_doc}}</span>
+                      </p>           
+                   
+                    </ng-template> 
+                  </div>               
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Fecha Emisión"  prop="CxC" [flexGrow]="0.6" >
+                  <div>
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                      <p  id="feid" *ngFor="let v of value; let i = index">
+                          <span [class.text-title]="i == 0">{{v.Fec_emis | dConst}}</span>
+                      </p>        
+                    </ng-template>     
+                  </div>          
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Fecha Vencimiento"  prop="CxC" [flexGrow]="0.6"> 
+                  <div>
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                      <p  id="fvid" *ngFor="let v of value; let i = index">
+                          <span [class.text-title]="i == 0">{{v.Fec_venc | dConst}}</span>
+                      </p>          
+                    </ng-template> 
+                  </div>               
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Observación" prop="CxC"  [flexGrow]="2">
+                    <div >
+                      <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                        <p  id="obsid" *ngFor="let v of value; let i = index">
+                          <span *ngIf="!v.Anulado"  [class.text-bold]="i == 0"> {{v.Comentario}}</span>
+                          <span *ngIf="v.Anulado"  [class.text-bold]="i == 0"> ANULADO</span>
+                        </p>       
+                      </ng-template>  
+                    </div>              
+                </ngx-datatable-column>
+      
+                <ngx-datatable-column name="Neto" prop="CxC"  [flexGrow]="0.7" >
+                  <div >
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                      <p id="netoid" style="text-align: right" *ngFor="let v of value; let i = index">
+                          <span  [class.text-bold]="i == 0" > {{v.Monto_net | mConst}}</span>
+                      </p>   
+                    </ng-template>   
+                  </div>             
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Saldo"  prop="CxC" headerClass="saldo-size"  [flexGrow]="0.7">
+                  <div >
+                    <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row" let-group="group" let-rowHeight="rowHeight">
+                      <p  id="saldoid" style="text-align: right"  *ngFor="let v of value; let i = index">
+                          <span  [class.text-bold]="i == 0" >   {{v.Saldo | mConst}} </span>
+                      </p> 
+                    </ng-template>                
+                  </div>
+                </ngx-datatable-column>
+                
+             
+            <ngx-datatable-footer>
+                <ng-template 
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount"
+                  let-pageSize="pageSize"
+                  let-selectedCount="selectedCount"
+                  let-curPage="curPage"
+                  let-offset="offset"
+                  let-isVisible="isVisible">
+                  <div class="col-md-6">
+                    <div class="foot-pagination">  
+                      <datatable-pager
+                      [pagerLeftArrowIcon]="'datatable-icon-left'"
+                      [pagerRightArrowIcon]="'datatable-icon-right'"
+                      [pagerPreviousIcon]="'datatable-icon-prev'"
+                      [pagerNextIcon]="'datatable-icon-skip'"
+                      [page]="curPage"
+                      [size]="pageSize"
+                      [count]="rowCount"
+                      [hidden]="!((rowCount / pageSize) > 1)"
+                      (change)="table.onFooterPage($event)">
+                      </datatable-pager>
+                    </div>
+                   </div>
+                   <div class="col-md-6" style="padding: 20px 10px;">
+                      <div class ="col-md-12 footer-table" >   
+                       <span>Total Neto: {{ getSaldoAcum() | mConst}} </span> <span style="padding-left: 50px;">Total Saldo: {{ getNetoAcum() | mConst}} </span>
+                      </div>
+                   </div>
+                </ng-template>
+              </ngx-datatable-footer>
+            </ngx-datatable> 
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+</div>

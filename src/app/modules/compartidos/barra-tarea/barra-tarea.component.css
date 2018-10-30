@@ -1,0 +1,12 @@
+.styleButton{
+    background: white;
+    border: 1px solid #d9d9d9;
+}
+
+.btnSalir{
+    border-radius: .25rem !important;
+}
+
+.btnSeparador{
+    border-left: 3px solid #868686;
+}

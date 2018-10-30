@@ -1,0 +1,27 @@
+td{
+  width: 900px;
+}
+*{
+  padding-left: 5px;
+}
+
+hr {
+padding: 10px;
+vertical-align: top;
+}
+strong{
+  color: #E53835;
+  font-size: 30px;
+}
+#boton{
+  text-align: right;
+}
+[type=reset], [type=submit], button, html [type=button]{
+  border: solid 0.5px #d9d9d9;
+  border-radius: 5px;
+  background: #f5f5f5;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}

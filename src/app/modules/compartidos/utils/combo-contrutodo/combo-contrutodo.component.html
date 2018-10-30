@@ -1,0 +1,24 @@
+
+  <ng-select [items]="comboBuffer"
+    [bindLabel]="(tipoLista==1)?'sDescripcion':'Campo2'"
+    [bindValue]="(tipoLista==1)?'sCodigo':'Campo1'"
+    [placeholder]="placeHolder"
+    [virtualScroll]="true"
+    [loading]="comboLoading"
+    [clearable]="false"
+    [(ngModel)]="selectedItemIds"
+    notFoundText = "No hay información"
+    typeToSearchText = "Buscar..."
+    (click)="Click()"
+    [typeahead]="input$"
+    (change)="onChange($event, selectedItemIds)"
+    (scrollToEnd)="fetchMore(select.filterValue)" #select>
+    
+    <ng-template ng-header-tmp>
+       <small class="form-text text-muted">Cargados {{comboBuffer.length}} de {{(tipoLista==1)?(listaComboOut.Lista.length) :( listaComboOut.ConsultarTablasResult.Resultado.length )}} </small>
+    </ng-template>
+    <ng-template ng-option-tmp let-item="item">
+        {{ (tipoLista==1)?((!hideCode)?(item.sCodigo +' - '+ item.sDescripcion) : (item.sDescripcion)) : (item.Campo1 +' - '+ item.Campo2) }}
+    </ng-template>
+  </ng-select> 
+

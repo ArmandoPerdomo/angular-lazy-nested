@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 class="center styleFont modal-title">Importar de:</h4>
+    <button type="button" class="close" aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')">
+    </button>
+  </div>
+<form [formGroup]="modalImportar">
+    <div class="styleFont modal-body">
+        <div>
+            <input type="radio"  formControlName="vista" value="cotiCliente" > Cotizaciones a cliente
+        </div>
+        <div>
+            <input type="radio"  formControlName="vista" value="pedidos"> Pedidos
+        </div>
+        <div>
+          <input type="radio"  formControlName="vista" value="facVentas"> Factura de ventas
+        </div>
+        <div>
+            <input type="radio"  formControlName="vista" value="planVentas"> Plantilla de ventas
+        </div>
+    </div>
+    <div class="modal-footer centerFooter">
+        <button type="button" class="border btn btn-outline-dark" (click)="vista()">Aceptar</button>
+        <button type="button" class="border btn btn-outline-dark" (click)="activeModal.close('Close click')">Salir</button>
+    </div>
+</form>

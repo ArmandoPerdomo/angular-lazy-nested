@@ -1,0 +1,329 @@
+<div class="container-fliud w-100 p-3">
+  <form class="" [formGroup]="ComponentesGenerales">
+
+    <label>ENCABEZADO</label>
+<!--{{ComponentesGenerales.value | json }}-->
+
+  <div formGroupName="encabezadoData">
+    <div class="form-group row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group row">
+              <div class="col-md-4">
+                <label class="col-form-label">Número:</label>
+              </div>
+              <div class="form-group col-md-8">
+                <input type="text" class="form-control height35" placement="top" ngbTooltip="Número" formControlName="iNumeroDocumento" required>
+                <div class="error" *ngIf="ComponentesGenerales.get('encabezadoData').get('iNumeroDocumento').hasError('required') && ComponentesGenerales.get('encabezadoData').get('iNumeroDocumento').touched">
+                  Email is required
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label">Condición de pago:</label>
+              </div>
+              <div class="form-group col-md-8">
+                <select id="inputState" class="form-control" data-live-search="true" formControlName="sFormaPago" required>
+                  <option value='' >Seleccione:</option>
+                  <option *ngFor="let cond of listaCondiciones" [ngValue]="cond.sCodigo" ngDefaultControl maxlength="20">{{cond.sCodigo}} - {{cond.sDescripcion}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="form-group col-md-5">
+            <div class="row" *ngIf='mostrarStatus'>
+              <div class="col-md-4">
+                <label class="col-form-label">Status:</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" class="form-control height35" formControlName="sStatus">
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-7">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label">Fecha de registro:</label>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-append">
+                        <button class="form-control btn btn-outline-secondary" (click)="FecEmis.toggle()" type="button">
+                          <i class="fa fa-calendar fa-lg"></i>
+                        </button>
+                      </div>
+                      <input class="form-control" placeholder="{{dtEmis | date: 'dd/MM/yyyy'}}"
+                      formControlName="sFec_emis" formControlName="sFec_emis" ngbDatepicker #FecEmis="ngbDatepicker" required>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-sm-4 col-md-2">
+            <label class="col-form-label">Cliente:</label>
+          </div>
+          <div class="form-group col-sm-8 col-md-10">
+            <select id="inputState" class="form-control" formControlName="sCodigoCliente" required>
+              <option value='' disabled selected>Seleccione:</option>
+              <option *ngFor= "let cli of listaCliente" [ngValue]="cli.sCodigo" ngDefaultControl maxlength="20">{{cli.sCodigo}} - {{cli.sDescripcion}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-5 invisible">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label">invisible:</label>
+              </div>
+              <div class="col-md-8">
+                <input type="text" class="form-control height35" id="invisible">
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-md-7">
+            <div class="row">
+              <div class="col-md-4">
+                <label class="col-form-label">Fecha de entrega:</label>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-append">
+                        <button class="form-control btn btn-outline-secondary" (click)="FecVenc.toggle()" type="button">
+                          <i class="fa fa-calendar fa-lg"></i>
+                        </button>
+                      </div>
+                      <input class="form-control" placeholder="{{ dtVenc | date: 'dd/MM/yyyy'}}"
+                              name="fv" formControlName="sFec_venc" ngbDatepicker #FecVenc="ngbDatepicker" required>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-xs-6 col-md-2">
+            <label class="col-form-label">Vendedor:</label>
+          </div>
+          <div class="form-group col-xs-6 col-md-10">
+              <select id="inputState" class="form-control" formControlName="sCodigoVendedor" required>
+                  <option value='' disabled selected>Seleccione:</option>
+                  <option *ngFor= "let vend of listaVendedor" [ngValue]="vend.sCodigo" ngDefaultControl maxlength="20">{{vend.sCodigo}} - {{vend.sDescripcion}}</option>
+                </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-5 col-xs-5 col-md-2">
+            <label class="col-form-label">Transporte:</label>
+          </div>
+          <div class="form-group col-7 col-xs-7 col-md-10">
+              <select id="inputState" class="form-control" formControlName="sCodigoTransporte" required>
+                <option value='' disabled selected>Seleccione:</option>
+                <option *ngFor= "let tr of listaTransporte" [ngValue]="tr.sCodigo"  ngDefaultControl maxlength="20">{{tr.sCodigo}} - {{tr.sDescripcion}}</option>
+              </select>
+            </div>
+        </div>
+      </div>
+    </div>  
+    <br>
+    <div class="form-group row justify-content-start">
+      <div class="col-xs-7 col-sm-8 col-lg-8">
+        <div class="form-group row">
+          <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+            <label class="col-form-label">Descripción:</label>
+          </div>
+          <div class="col-xs-8 col-sm-9 col-md-10 col-lg-10">
+            <input type="text" class="form-control" formControlName="sDescrip">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-5 col-sm-4 col-lg-4">
+        <div class="form-group row">
+          <div class="col-xs-6 col-md-6 textAlignRight">
+            <label class="col-form-label">Moneda:</label>
+          </div>
+          <div class="form-group col-xs-6 col-md-6">
+            <select id="inputState" class="form-control" formControlName="sMoneda" required>
+              <option value='' disabled selected>Seleccione:</option>
+              <option *ngFor="let mon of listaMoneda" [ngValue]="mon.sCodigo" [selected]="mon.sCodigo === sMoneda" ngDefaultControl maxlength="20">{{mon.sCodigo}} - {{mon.sDescripcion}}</option> 
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div>
+
+      <label>DETALLE</label>
+      <div class="form-group table-responsive">
+          <div class="table-wrapper-scroll-y">
+            <table datatable class="table table-striped table-bordered" style="margin-bottom: 0">
+          <thead>
+            <tr>
+              <th *ngIf="mostrarSel">Sel</th>
+              <th style="width: 5%" style="width: 50px" scope="col">Renglón</th>
+              <th style="width: 20%" style="width: 200px" scope="col">Artículo</th>
+              <th *ngIf="mostrarbt" style="width: 50px" scope="col"></th>
+              <th style="width: 10%" style="width: 200px" scope="col">Almacén</th>
+              <th style="width: 10%" style="width: 100px" scope="col">Cantidad</th>
+              <th *ngIf="mostrarImp" style="width: 100px" style="width: 10%" scope="col">Imp.</th>
+              <th *ngIf="mostrarImp" style="width: 100px" scope="col">Pend.</th>
+              <th *ngIf="mostrarImp" style="width: 200px" scope="col">Unidad</th>
+              <th style="width: 10%" style="width: 100px" scope="col">Precio</th>
+              <th *ngIf="ocultarImp" style="width: 200px" scope="col">Unidad</th>
+              <th style="width: 10%" style="width: 100px" scope="col">% Desc.</th>
+              <th style="width: 10%" style="width: 300px !important" scope="col">Iva</th>
+              <th *ngIf="ocultarImp" style="width: 300px !important" scope="col">Neto</th>
+              <th *ngIf="ocultarImp" style="width: 150px" scope="col">Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tablaDetalle" *ngFor="let item of listaRenglones; let i = index" (click)="obtenerItem(i,item.iReng_Num)">
+                <td style="width: 50px" *ngIf="mostrarSel">
+                    
+                      <input type="checkbox" [value]="item.iReng_Num" formControlName="selSelect">
+                  
+                </td>
+
+                <td style="width: 50px">{{ item.iReng_Num }}</td>
+
+                <td style="width: 200px" *ngIf="ocultarImp">
+                    <input type="text" class="form-control" [value]="item.sCo_Art" formControlName="articuloInput"/>
+                </td>
+
+                <td style="width: 200px" *ngIf="mostrarImp">
+                  {{item.sCo_Art}}
+                </td>
+
+                <td style="width: 50px" *ngIf="mostrarbt">
+                    <button type="button" class="btn btn-default btn-responsive styleButton" (click)="open(content)"><i class="fa fa-asterisk"></i></button>
+                </td>
+
+                <td style="width: 200px" *ngIf="ocultarImp">
+                  <select id="inputState" class="form-control" formControlName="almacen">
+                      <option value=''></option>
+                      <option *ngFor="let al of listaAlmacen" [ngValue]="al.sCodigo" ngDefaultControl maxlength="20">{{al.sCodigo}} - {{al.sDescripcion}}</option> 
+                    </select>
+                </td>
+
+                <td style="width: 200px" *ngIf="mostrarImp">
+                  {{item.sCo_alma}}
+                </td>
+
+                <td style="width: 100px" *ngIf="ocultarImp">
+                    <input type="text" [value]="item.dTotal_Art" class="form-control" formControlName="cantidad">
+                </td>
+
+                <td style="width: 100px" *ngIf="mostrarImp">
+                  {{item.dTotal_Art}}
+                </td>
+                
+                <td style="width: 100px" *ngIf="mostrarImp">
+                  <input type="text" [value]="item.dTotal_Art" class="form-control" formControlName="imp">
+                </td>
+
+                <td style="width: 100px" *ngIf="mostrarImp">
+                  {{item.dPendiente}}
+                </td>
+
+                <td style="width: 200px" *ngIf="mostrarImp">
+                  {{item.sUni_Venta}}
+                </td>
+
+                <td style="width: 100px" *ngIf="ocultarImp">
+                    <input type="text" [value]="item.dPrec_Vta" class="form-control" formControlName="precio">
+                </td>
+
+                <td  style="width: 100px" *ngIf="mostrarImp">
+                  {{item.dPrec_Vta}}
+                </td>
+
+                <td style="width: 200px" *ngIf="ocultarImp">
+                    <select id="inputState" class="form-control" formControlName="unidad">
+                        <option value=''></option>
+                        <option *ngFor="let un of listaUnidad" [ngValue]="un.sCodigo" [selected]="un.sCodigo === item.sUni_Venta" ngDefaultControl maxlength="20">{{un.sCodigo}} - {{un.sDescripcion}}</option> 
+                      </select>
+                </td>
+                <td style="width: 300px !important" *ngIf="ocultarImp">
+                    <input type="text" class="form-control" [value]="item.sPorc_Desc" formControlName="descuento">
+                </td>
+                <td  style="width: 300px !important" *ngIf="mostrarImp">
+                  {{item.sPorc_Desc}}
+                </td>
+                <td style="width: 300px !important" *ngIf="ocultarImp">
+                    <input type="text" class="form-control" [value]="item.sTipoImp" formControlName="iva" >
+                </td>
+                <td style="width: 300px !important" *ngIf="mostrarImp">
+                  {{item.sTipoImp}}
+                </td>
+                <td style="width: 50px" *ngIf="ocultarImp">
+                    <input type="text" class="form-control" [value]="item.dReng_Neto" formControlName="neto" >
+                </td>
+                <td style="width: 50px" *ngIf="ocultarImp">
+                    <input type="text" class="form-control" [value]="item.sArticulo" formControlName="descripcionTabla" >
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="form-group row col-md-6">
+        <!--<app-component-botones></app-component-botones>-->
+
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group row justify-content-between">
+          <label class="col-md-8 col-form-label textAlignRight">Sub total:</label>
+          <input type="text" class="row col-md-4 form-control" formControlName="subTotal">
+        </div>
+
+        <div class="form-group row justify-content-between">
+          <label class="col-md-8 col-form-label textAlignRight">IVA:</label>
+          <input type="text" class="row col-md-4 form-control" formControlName="iva2">
+        </div>
+
+        <div class="form-group row justify-content-between">
+          <label class="col-md-8 col-form-label textAlignRight">Total:</label>
+          <input type="text" class="row col-md-4 form-control" formControlName="total" >
+        </div>
+      </div>
+    </div>
+    <div *ngIf="ocultarImp" class="row">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-default btn-responsive styleButton" (click)="openImportar()"><i class="fa fa-check-circle fa-lg"></i> Importar</button>
+      </div>
+    </div>
+  </form>
+</div>   

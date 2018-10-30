@@ -1,0 +1,124 @@
+<form [formGroup]="Detalle">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div style="padding: 20px 0px 0px 0px;">
+              <div class="row">
+                  <div class="col-md-8">
+                      <h3>{{title}}</h3>
+                  </div>
+                  <div class="form-group col-md-2">
+                      <select class="form-control" placeholder="Enviar a: " formControlName="enviar" [(ngModel)]='env'  >
+                        <option value="PDF">Archivo PDF</option>
+                      </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                      <button type="button" class="btn btn-light"  (click)="createPDF(detalleReport)"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+                      <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Volver</button>
+                  </div>
+              </div>
+          </div>
+
+          <hr>
+          <div class="row" id="tab">
+                <ngx-datatable id="myTable1"
+                    #myTable
+                    class="material"
+                    [rows]="detalleReport?.RepMovBancoxNumeroResult.Documeto"
+                    [summaryRow]="enableSummary" 
+                    [summaryPosition]="summaryPosition"
+                    [columnMode]="'flex'"
+                    
+                    [summaryHeight]="'auto'"
+                    [headerHeight]="60"
+                    [footerHeight]="50"
+                    [rowHeight]="'auto'"
+                    [limit]="10">
+
+                    <ngx-datatable-column name="Número" [sortable]="false"  [flexGrow]="0.5"  prop="Numero"  [summaryTemplate]="blanco"></ngx-datatable-column>
+                    <ngx-datatable-column name="Cuenta" [sortable]="false"  [flexGrow]="1"  prop="Cuenta"  [summaryTemplate]="blanco"></ngx-datatable-column>
+            
+                    <ngx-datatable-column name="Fecha"  [sortable]="false" [flexGrow]="0.8"  prop="Fecha">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                        <p>
+                          {{value | dConst}}
+                        </p> 
+                      </ng-template>  
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Tipo"  [sortable]="false" [flexGrow]="0.5"  prop="Tpo"  [summaryTemplate]="blanco"></ngx-datatable-column>
+                    <ngx-datatable-column name="Nro. Doc"  [sortable]="false" [flexGrow]="0.8"  prop="NroDoc"  [summaryTemplate]="blanco"></ngx-datatable-column>
+                    <ngx-datatable-column name="Moneda"  [sortable]="false" [flexGrow]="0.5"  prop="Moneda"  [summaryTemplate]="blanco"></ngx-datatable-column>  
+                    <ngx-datatable-column name="Descripción" [sortable]="false"  [flexGrow]="1"  prop="Descripcion"  [summaryTemplate]="blanco"></ngx-datatable-column>
+                    <ngx-datatable-column name="Origen" [sortable]="false" [flexGrow]="0.5"  prop="Origen"  [summaryTemplate]="total"></ngx-datatable-column>
+
+                  
+                    <ngx-datatable-column name="Debe" [sortable]="false" [flexGrow]="1"  prop="Debe"  [summaryTemplate]="debe" headerClass="cell-right">
+                        <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                            <p style="text-align: right">
+                              {{value | mConst}}
+                            </p> 
+                          </ng-template>  
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Haber" [sortable]="false" [flexGrow]="1"  prop="Haber"  [summaryTemplate]="haber" headerClass="cell-right">
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                          <p style="text-align: right">
+                            {{value | mConst}}
+                          </p> 
+                        </ng-template>  
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="ITF" [sortable]="false" [flexGrow]="1"  prop="ITF"  [summaryTemplate]="itf" headerClass="cell-right-margin">  
+                      <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                          <p style="text-align: right; margin-right: 7%">
+                            {{value | mConst}}
+                          </p> 
+                        </ng-template>  
+                    </ngx-datatable-column>
+                </ngx-datatable>
+
+                <ng-template #total>
+                  <div class="neto-container" rowHeight="400px">
+                    <div style="text-align: right">
+                      <span class="chip-content">Totales:</span>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template #debe>
+                  <div class="neto-container" rowHeight="400px">
+                    <div style="text-align: right">
+                      <span class="chip-content">{{ detalleReport?.RepMovBancoxNumeroResult.TotalDebe | mConst }}</span>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template #haber>
+                  <div class="neto-container" rowHeight="400px">
+                    <div style="text-align: right">
+                      <span class="chip-content">{{ detalleReport?.RepMovBancoxNumeroResult.TotalHaber | mConst }}</span>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template #itf>
+                  <div class="neto-container" rowHeight="400px">
+                    <div style="text-align: right; margin-right: 7%">
+                      <span class="chip-content">{{ detalleReport?.RepMovBancoxNumeroResult.TotalITF | mConst }}</span>
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template #blanco>
+                  <div class="neto-container" rowHeight="400px">
+                    <div style="text-align: right">
+                      <span class="chip-content"></span>
+                    </div>
+                  </div>
+                </ng-template>
+                
+              </div>
+          
+        </div>
+      </div>
+    </div>
+</form>
+
+

@@ -1,0 +1,171 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h3>{{titCxP}}</h3>
+        <hr>
+        <div class="card">
+          <div class="card-body">
+            <form class="form-horizontal" [formGroup]="ListadoCxP">
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Número:</label>
+                    </div>
+                    
+                    <div class=" form-group col-md-4">
+                            <span *ngIf="ListadoCxP.controls.numD.invalid && ListadoCxP.controls.numD.touched" class="text-danger"> Campo Requerido</span>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" min="0"  [ngClass]="{
+                                'has-danger':  ListadoCxP.controls.numD.invalid && ListadoCxP.controls.numD.dirty, 
+                                'has-success':ListadoCxP.controls.numD.valid && ListadoCxP.controls.numD.dirty 
+                            }"  placeholder="NÚMERO" class="form-control" id="inputnumero_D" formControlName="numD" [(ngModel)]='numeroD'>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <span *ngIf="ListadoCxP.controls.numH.invalid && ListadoCxP.controls.numH.touched" class="text-danger"> Campo Requerido</span>                   
+                        <span *ngIf="!campoNumero" class="text-danger"> Campo no puede ser mayor</span>
+                        <div class="input-group ">
+                            <input type="number" class="form-control" min="numeroD" [ngClass]="{
+                                'has-danger': !campoNumero || ListadoCxP.controls.numH.invalid && ListadoCxP.controls.numH.dirty , 
+                                'has-success': campoNumero || ListadoCxP.controls.numH.valid && ListadoCxP.controls.numH.dirty 
+                            }"  placeholder="NÚMERO" class="form-control" id="inputnumero_D" formControlName="numH" [(ngModel)]='numeroH'>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Tipo:</label>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <app-combo-contrutodo [servicio]="tipoCallback" [tipoLista]=1 [formControlName]="'tipo'" [selectedItemIds]="tipoL" (codigo)="cleanTipoCodigo($event)"> </app-combo-contrutodo>  
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Fecha:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <span *ngIf="ListadoCxP.controls.dateD.invalid && ListadoCxP.controls.dateD.touched" class="text-danger"> Campo Requerido</span>
+                        <div class="input-group ">  
+                            <input class="form-control" [ngClass]="{
+                                'has-danger': ListadoCxP.controls.dateD.invalid && ListadoCxP.controls.dateD.dirty , 
+                                'has-success':ListadoCxP.controls.dateD.valid && ListadoCxP.controls.dateD.dirty 
+                                }" placeholder="yyyy-mm-dd"   [maxDate]="maxDate"
+                                    [(ngModel)]="fechaD"  formControlName="dateD" ngbDatepicker #dD="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="dD.toggle()" type="button">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div *ngIf="ListadoCxP.controls.dateH.invalid && ListadoCxP.controls.dateH.touched" class="text-danger">
+                            <span *ngIf="ListadoCxP.controls.dateH.invalid" class="text-danger">Seleccione una fecha mayor</span>
+                            <span *ngIf="ListadoCxP.controls.dateH.required" class="text-danger">Campo Requerido</span>
+                        </div>
+                        <div class="input-group ">
+                            <input class="form-control" [ngClass]="{
+                                'has-danger': ListadoCxP.controls.dateH.invalid && ListadoCxP.controls.dateH.dirty , 
+                                'has-success':ListadoCxP.controls.dateH.valid && ListadoCxP.controls.dateH.dirty}"
+                                    placeholder="yyyy-mm-dd"   [maxDate]="maxDate" [minDate]="fechaD"
+                                        [(ngModel)]="fechaH"  formControlName="dateH" ngbDatepicker #dH="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="dH.toggle()" type="button">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Proveedor:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <app-combo-contrutodo [servicio]="proveedorCallback" [tipoLista]=2 [formControlName]="'proveedorD'" [selectedItemIds]="provD"
+                        (codigo)="changeProvedorCodigo($event)"  (codigo)="cleanProveedorCodigo($event)"></app-combo-contrutodo>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <app-combo-contrutodo [servicio]="proveedorCallback" [tipoLista]=2 [formControlName]="'proveedorH'" [selectedItemIds]="provH"></app-combo-contrutodo>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Condición:</label>
+                    </div>
+                        <div class="form-group col-md-8">
+                        <app-combo-contrutodo [servicio]="condicionCallback" [tipoLista]=1 [formControlName]="'condicion'" [selectedItemIds]="cond" (codigo)="cleanCondicionCodigo($event)"> </app-combo-contrutodo>  
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Moneda:</label>
+                    </div>
+                    
+                    <div class="form-group col-md-8">
+                        <app-combo-contrutodo [ngClass]="{
+                            'form-control-danger': ListadoCxP.controls.moneda.invalid && ListadoCxP.controls.moneda.dirty , 
+                            'has-success':ListadoCxP.controls.moneda.valid && ListadoCxP.controls.moneda.dirty 
+                            }" [servicio]="monedaCallback" [tipoLista]=1   [formControlName]="'moneda'" [selectedItemIds]="monedaC" (codigo)="cleanMonedaCodigo($event)" ></app-combo-contrutodo>  
+                    </div>
+                    <div class="form-group col-md-2">
+                        <span *ngIf="ListadoCxP.controls.moneda.invalid && ListadoCxP.controls.moneda.touched" class="text-danger"> Campo Requerido</span>
+                            
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Zona:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <app-combo-contrutodo [servicio]="zonaCallback" [tipoLista]=1  [formControlName]="'zonaD'" [selectedItemIds]="zonD"  (codigo)="cleanZonaCodigo($event)"  (codigo)="changeZonaCodigo($event)"></app-combo-contrutodo>  
+                    </div>
+                    <div class="form-group col-md-4">
+                        <app-combo-contrutodo [servicio]="zonaCallback" [tipoLista]=1 [formControlName]="'zonaH'" [selectedItemIds]="zonH"></app-combo-contrutodo>                          
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="nmro">Segmento:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <app-combo-contrutodo [servicio]="segmentoCallback" [tipoLista]=1 [formControlName]="'segmentoD'" [selectedItemIds]="segD"  (codigo)="changeSegmentoCodigo($event)"   (codigo)="cleanSegmentoCodigo($event)"> </app-combo-contrutodo> 
+                    </div>
+                    <div class="form-group col-md-4">
+                        <app-combo-contrutodo [servicio]="segmentoCallback" [tipoLista]=1 [formControlName]="'segmentoH'" [selectedItemIds]="segH"></app-combo-contrutodo>                        
+                    </div>
+                </div>
+                
+                
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputCliente">Enviar a:</label>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select class="form-control" formControlName="enviar" [(ngModel)]='env' placeholder="Enviar a"  [ngClass]="{'has-danger': ListadoCxP.controls.enviar.invalid && ListadoCxP.controls.enviar.dirty, 
+                        'has-success':ListadoCxP.controls.enviar.valid && ListadoCxP.controls.enviar.dirty 
+                        }">
+                            <option value="" disabled>Enviar a</option> 
+                            <option value="Listado">Detalle</option>
+                            <option value='PDF'>Archivo PDF</option>
+                            <option value='Excel'>Archivo Excel</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <button type="button" class="btn btn-light" (click)="limpiar()"><i class="fa fa-trash-o" id="limpiar" aria-hidden="true" ></i>Limpiar Filtros</button>
+                    <button type="button" class="btn btn-light" (click)="Aceptar()"><i class="fa fa-check" id="aceptar" aria-hidden="true"  ></i>Aceptar</button>
+                    <button type="button" class="btn btn-light" (click)="goBack()" ><i class="fa fa-times" id="cancelar" aria-hidden="true"></i>Cancelar</button> 
+                </div>
+            </form>
+          </div>
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+
+
+      
+      

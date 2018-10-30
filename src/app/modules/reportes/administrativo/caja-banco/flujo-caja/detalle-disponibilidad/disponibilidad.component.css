@@ -1,0 +1,84 @@
+.principal{
+  margin-top:4%;
+  margin-left: 0;
+}
+
+.fa-check-circle{
+  color:green;
+  padding-right: 4px;
+}
+.fa-arrow-left{
+  color: red;
+  padding-right: 4px;
+}
+
+#conta1{
+  border: 1px solid #868686;
+}
+
+tbody tr:hover{
+  background:#FADBD8 ;
+}
+#row1{
+  margin-top: 4%;
+}
+
+#myTable1  {
+  width: 100%;
+  }
+  
+
+.ngx-datatable.material .datatable-body .datatable-group-header {
+     border-bottom: 0px;
+     border-top: 0px
+}
+
+ngx-datatable, ngx-datatable-column{
+  border: solid 1px #d9d9d9;
+  background: #f5f5f5;
+  border-top: none;
+  
+  }  
+
+.cell-right-margin{
+    text-align: right;
+    margin-right: 1.3%;
+}
+.cell-right {
+  text-align: right;
+}
+.cell-left{
+  text-align: left;
+}
+
+  .ngx-datatable.material .datatable-header .datatable-header-cell{
+  text-align: center;
+  }
+
+  .text-bold{
+    font-weight: bold;
+
+  }
+  .footer-table{
+    text-align: right;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  #aceptar{
+    color: green;
+  }
+  #cancelar {
+    color: red;
+  }
+  h3{
+    margin: 0;
+  }
+  #tab {
+    margin: 3px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  .footer-table {
+    font-size: 15px;
+    color: black;
+}

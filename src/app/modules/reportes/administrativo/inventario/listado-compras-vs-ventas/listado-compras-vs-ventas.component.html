@@ -1,0 +1,163 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div style="padding: 20px 0px 0px 0px;">
+        <div class="row">
+          <div class="col-md-8">
+            <h3>{{titListCompVen}}</h3>
+          </div>
+
+          <div class="col-md-2">
+            <select class="form-control" placeholder="Enviar a: ">
+              <option value='PDF'>Archivo PDF</option>
+            </select>
+          </div>
+
+          <div class="col-md-2">
+            <button type="button" class="btn btn-light" (click)="accept()">
+              <i class="fa fa-check" id="accept" aria-hidden="true"></i>Aceptar</button>
+            <button type="button" class="btn btn-light" (click)="goBack()">
+              <i class="fa fa-arrow-left" id="cancel" aria-hidden="true"></i>Volver</button>
+          </div>
+        </div>
+        <hr>
+
+        <div class="row" id="tab2">
+          <ngx-datatable id="tabla_doc" class="material" [rows]="rows" [columnMode]="'force'" [summaryHeight]="'auto'"
+            [headerHeight]="60" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10" [loadingIndicator]="loadingIndicator"
+            [summaryRow]="enableSummary" [summaryPosition]="summaryPosition" [scrollbarH]="true">
+
+            <ngx-datatable-column name="Artículo" prop="Articulo" width="150" ></ngx-datatable-column>
+
+            <ngx-datatable-column name="Descripción" prop="Descripcion" width="300" [summaryTemplate]="nameSummaryCell"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Unidad" prop="Unidad" width="70"></ngx-datatable-column>
+
+            <ngx-datatable-column name="Stock Ini." prop="StockIni" [summaryTemplate]="totalStockIni" width="100">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Compras" prop="Compras" [summaryTemplate]="totalCompras" width="70">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Salidas" prop="Salidas" [summaryTemplate]="totalSalidas" width="70">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Ventas" prop="Ventas" [summaryTemplate]="totalVentas" width="70">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Entradas" prop="entradas" [summaryTemplate]="totalEntradas" width="70">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Stock Fin." prop="StockFinal" [summaryTemplate]="totalStockFin" width="100">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="Stock G-01" prop="StockG01" [summaryTemplate]="totalStockG01" width="100">
+              <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowHeight="rowHeight">
+                <p style="text-align: right; margin-right: 15%">
+                  {{value | mConst}}
+                </p>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+
+          <ng-template #nameSummaryCell>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: left">
+                <span id="boldy" class="chip-content">Totales: <br />Totales artículos que manejan Stock: <br />Totales artículos
+                  de
+                  servicio:</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #totalStockIni>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: right">
+                <span id="boldy">{{aStIn | mConst}}<br />{{totInicial1 | mConst}}</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #totalCompras>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: right">
+                <span id="boldy">{{aC | mConst}}<br />{{totCompra1 | mConst}}<br />{{totCompra2 | mConst}}</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #totalSalidas>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: right">
+                <span id="boldy">{{aS | mConst}}<br />{{totSalida1 | mConst}}<br />{{totSalida2 | mConst}}</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #totalVentas>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: right">
+                <span id="boldy">{{aV | mConst}}<br />{{totVenta1 | mConst}}<br />{{totVenta2 | mConst}}</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #totalEntradas>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: right">
+                <span id="boldy">{{aE | mConst}}<br />{{totEntrada1 | mConst}}<br />{{totEntrada2 | mConst}}</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #totalStockFin>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: right">
+                <span id="boldy">{{aStFi | mConst}}<br />{{totFinal1 | mConst}}</span>
+              </div>
+            </div>
+          </ng-template>
+
+          <ng-template #totalStockG01>
+            <div class="neto-container" rowHeight="400px">
+              <div style="text-align: right; margin-right: 15%">
+                <span id="boldy">{{aGO1 | mConst}}</span>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

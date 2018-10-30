@@ -1,0 +1,24 @@
+<div class="construtodo-container">
+  <mat-progress-bar mode="indeterminate" class="container-progress" *ngIf="routerLoadingBarState"></mat-progress-bar>
+  
+  <mat-sidenav-container>
+    
+    <!-- sidenav menu -->
+    <mat-sidenav #sideNavCT role="navigation"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      [(opened)]="sidenavIsToggled"
+      (closed)="forceClosed()"
+    >
+      <app-sidenav></app-sidenav>
+    </mat-sidenav>
+
+    <mat-sidenav-content role="main">
+      <!-- toolbar menu -->
+      <app-toolbar [mobileQuery]="mobileQuery"></app-toolbar>
+      <main [@fadeAnimation]="getRouterOutletState(main)">
+          <router-outlet #main="outlet"></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

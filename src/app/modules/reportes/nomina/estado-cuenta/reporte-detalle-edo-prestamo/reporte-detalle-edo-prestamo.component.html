@@ -1,0 +1,124 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+          <div style="padding: 20px 0px 0px 0px;">
+              <div class="row">
+                  <div class="col-md-8">
+                      <h3>Control de préstamos</h3>
+                  </div>
+                  <div class="col-md-2">
+                      <select class="form-control" placeholder="Enviar a: ">
+                          <option value="PDF">Archivo PDF</option>
+                      </select>
+                  </div>
+                  <div class="col-md-2">
+                      <button type="button" class="btn btn-light" (click)="crearPdf(detalleReport,detalleReportin)"><i class="fa fa-check" id="aceptar"
+                          aria-hidden="true"></i>Aceptar</button>
+                      <button type="button" class="btn btn-light" (click)="goBack()"><i class="fa fa-arrow-left" id="cancelar"
+                          aria-hidden="true"></i>Volver</button>
+                  </div>
+              </div>
+          </div>
+          <hr>
+          <div class="card">
+            <div class="card-body">
+                <div class="row" id="cont">
+                    <div class="col-md-12">
+                      <mat-tab-group (selectedIndexChange)="selected.setValue($event)" [selectedIndex]="selected.value" >
+                          <mat-tab *ngFor="let rep of detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones" [label]="rep.Trabajador">
+                          </mat-tab>
+                      </mat-tab-group>
+                      <br>
+                      <table class="table-borderless"> 
+                          <tr>
+                              <td style="padding-left: 0;"><b>Trabajador: </b></td>
+                              <td>{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].CodigoTrabajador}} {{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Trabajador}}</td>
+                          </tr>
+                          <tr>
+                              <td style="padding-left: 0;"><b>Tipo de Préstamo: </b></td>
+                              <td>{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].TipoPrestamo}} {{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].CodigoTipo}}</td>
+                          </tr>
+                      </table>
+                      <br>
+                        <table id=tabla_doc  class="table-striped table-hover table-responsive ">
+                            <thead>
+                                <tr>
+                                    <th>Número</th>
+                                    <th>Fecha Asignación</th>
+                                    <th class="right">Monto</th>
+                                    <th class="right">Interés</th>
+                                    <th>Frecuencia</th>
+                                    <th>Método</th>
+                                    <th class="right">Cant. Cuotas</th>
+                                    <th>Fecha 1ra Cuota</th>
+                                    <th class="right">Cuotas Pagadas</th>
+                                    <th class="right">Saldo</th>
+                                    <th>Suspendido</th>
+                                    <th>Hasta la Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Numero}}</td>
+                                    <td class="right">{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].FechaAsignacion | dConst}}</td>
+                                    <td class="right">{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Monto | mConst}}</td>
+                                    <td class="right">{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Interes | mConst}} %</td>
+                                    <td>{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Frecuencia}}</td>
+                                    <td>{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Metodo}}</td>
+                                    <td class="right">{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Cuotas | mConst}}</td>
+                                    <td>{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Fecha1Cuota}}</td>
+                                    <td class="right">{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].CuotasPagadas | mConst}}</td>
+                                    <td class="right">{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Saldo | mConst}}</td>
+                                    <td>{{(detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].Suspendido)? 'Sí': 'No'}}</td>
+                                    <td>{{detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].HastaLaFecha | dConst}}</td>
+                                </tr>
+                            </tbody>   
+                        </table>
+                      <br>
+                      <br>
+                        <table id=tabla_doc  class="table-striped table-hover table-responsive ">
+                            <thead>
+                                <tr>
+                                    <th>Cta. Nro:</th>
+                                    <th>Fecha Vencimiento</th>
+                                    <th class="right">Capital</th>
+                                    <th class="right">Valor Cuota</th>
+                                    <th class="right">Amortización</th>
+                                    <th class="right">Interés</th>
+                                    <th>Pagado</th>
+                                    <th>Recibo</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="right">Total abonado</th>
+                                    <th class="right">{{ acum[selected.value] | mConst}}</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
+                            <tr *ngFor="let edoprestamo of detalleReport?.RepEdoCtaPrestamoResult?.ResumenPrestaciones[selected.value].DetallePrestamo; let i = index">
+                                <td>{{edoprestamo.Renglones}}</td>
+                                <td>{{edoprestamo.FechaVencimiento}}</td>
+                                <td class="right">{{edoprestamo.Capital | mConst}}</td>
+                                <td class="right">{{edoprestamo.ValorCuota | mConst}}</td>
+                                <td class="right">{{edoprestamo.Amortizacion | mConst}}</td>
+                                <td class="right">{{edoprestamo.InteresR | mConst}} %</td>
+                                <td>{{(edoprestamo.Pagado)? 'Sí': 'No'}}</td>
+                                <td>{{edoprestamo.Recibo}}</td>
+                            </tr>
+                        </table>
+                        <br>
+                  </div>
+                </div>
+            </div>
+          </div>
+         
+    </div>
+</div>
+
+

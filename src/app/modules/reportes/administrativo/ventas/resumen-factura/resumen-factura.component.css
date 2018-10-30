@@ -1,0 +1,25 @@
+#principal{
+  margin-top:4%;
+  margin-left: 0;
+
+}
+
+.fa-check{
+  color: red;
+  padding-right: 4px;
+}
+.fa-arrow-left{
+  color: green;
+  padding-right: 4px;
+}
+h2{
+  color: #db3a46;
+}
+
+#conta1{
+  border: 1px solid #868686;
+}
+
+tbody tr:hover{
+  background:#FADBD8 ;
+}

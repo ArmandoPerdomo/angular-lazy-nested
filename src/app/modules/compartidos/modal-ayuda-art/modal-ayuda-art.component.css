@@ -1,0 +1,101 @@
+.textAlignRight{
+    text-align: right;
+}
+#aceptar{
+    color: green;
+  }
+  #cancelar{
+    color:red;
+  }
+  .forma{
+  
+  padding: 4%;
+  margin-top: 2%;
+  width: 70%;
+  border: 1px solid #868686;
+    border-radius: 8px 8px;
+  }
+  
+    .form-control:focus{
+      box-shadow: 0 0 0 0.2rem rgba(255,0,0,0.5);
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(255,0,0,0.50);
+      border: solid 0.5px red;
+    }
+    .btn.focus, .btn:focus{
+      outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(211, 47, 46, 0.61);
+    box-shadow: 0 0 0 0.2rem rgba(211, 47, 46, 0.61);
+    border: solid 0.5px red;
+    }
+    option option:hover {
+      background-color: #E53835;
+      background-image: -webkit-linear-gradient(top, #ed1212 2%, #E53835 98%);
+      background-image: linear-gradient(to bottom, #E53835 2%, #E53835 98%);
+      color: #f8ecec;
+      text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+    }
+    strong{
+      color: #E53835;
+      font-size: 30px;
+    }
+
+    .modal-content-mio{
+      width: 816px !important;
+      margin-left: -158px !important;
+    }
+    .border2{
+      border: 1px solid #dee2e6!important;
+      position: relative;
+      text-align: center;
+      margin-right: 12px !important;
+      margin-left: -14px !important;
+    }
+
+    .left10{
+      position: relative;
+      left: -10px !important;
+    }
+
+    .centerFooter{
+      justify-content: center;
+    }
+
+    .left20{
+      left: -20px !important;
+    }
+
+    .left8{
+      left: 8px !important;
+    }
+
+    .texto{
+      font-size: 12px !important;
+    }
+    
+    .marginTop15{
+      margin-top: 15px !important;
+    }
+
+    .marginTop8{
+      margin-top: 8px !important;
+    }
+
+    .marginTop40{
+      margin-top: 40px !important;
+    }
+  
+    .table-wrapper-scroll-y {
+      display: block;
+      max-height: 200px;
+      overflow-y: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+  .margin{
+      margin-left: 5px !important;
+      margin-right: 5px !important;
+  }
+
+  .height50{
+    height: 50px !important;
+  }

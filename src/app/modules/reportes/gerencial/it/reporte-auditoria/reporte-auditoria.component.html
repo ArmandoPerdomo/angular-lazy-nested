@@ -1,0 +1,203 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div style="padding: 20px 0px 0px 0px;">
+        <div class="row">
+          <div class="col-md-8">
+            <h3>{{title}}</h3>
+          </div>
+
+          <div class="col-md-2">
+            <form  [formGroup]="formPdf">
+                <select class="form-control" placeholder="Enviar a: "  formControlName="sendTo" [(ngModel)]='send'>
+                  <option value='PDF'>Archivo PDF</option>
+                </select>
+            </form>
+            
+          </div>
+
+          <div class="col-md-2">
+              <button type="button" class="btn btn-light" (click)="createPdf(detalleReport)">
+                <i class="fa fa-check" id="aceptar" aria-hidden="true"></i>Aceptar</button>
+              <button type="button" class="btn btn-light" (click)="goBack()">
+                <i class="fa fa-arrow-left" id="cancelar" aria-hidden="true"></i>Salir</button>
+            </div>
+          </div>
+          <hr>
+
+          <div class="card">
+            <div class="card-body">
+
+              <mat-tab-group (selectedIndexChange)="selected.setValue($event)"
+              [selectedIndex]="selected.value" (click)="clean()">
+                  <mat-tab label="General">                    
+                  </mat-tab>
+                  <mat-tab label="Individual">
+                  </mat-tab>
+              </mat-tab-group>
+              <mat-progress-bar *ngIf="loadingI" color="warn"  mode="indeterminate" style="margin:0"></mat-progress-bar >
+
+              <br>
+              <!-- CONSULTA GENERAL -->
+              <div *ngIf="selected.value==0">
+                <!-- boton grafico -->
+                <div class="pull-right">
+                    <div class="row">
+                          <div class="col-md-6">
+                            <button class="btn btn-default" (click)="open()"><i class="fa fa-bar-chart"></i> Ver gráfico</button>
+                          </div>  
+                          <div class="col-md-6">
+                            <button class="btn btn-default" (click)="openfav()"><i class="fa fa-star"></i> Ver favoritos</button>
+                          </div>
+                    </div>
+                  </div>
+                  
+                  <br>
+            
+                  <br>
+                  <mat-tab-group (selectedIndexChange)="selectedTableg.setValue($event)" (click)="loadGeneralTable()" [selectedIndex]="selectedTableg.value">
+                      <mat-tab label="Últimos días (7)">                    
+                      </mat-tab>
+                      <mat-tab label="Último mes (1)"> 
+                      </mat-tab>
+                      <mat-tab label="Último año (1)"> 
+                      </mat-tab>
+                  </mat-tab-group>
+                  <br>
+                  <table  class="table" id=table_doc>
+                    <thead>
+                    <tr>
+                      <th class="center" scope="col">Nombre departamento</th>
+                      <th class="center" scope="col">Acceso</th>
+                      <th class="center" scope="col">Tiempo de conexión</th>
+                      <th class="center" scope="col">Reportes</th>
+                      <th class="center" scope="col">Gestión</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="cargaG">
+      
+                        <tr  *ngFor="let a of repGout">
+                            <td>{{a.nombreDepartamento}}</td>
+                            <td>{{a.nroAccesos}}</td>
+                            <td>{{a.tiempoConexion}}</td>
+                            <td>{{a.nroReportes}}</td>
+                            <td>{{a.nroGestion}}</td>                             
+                        </tr>
+                      </tbody>
+                      <tbody *ngIf="!cargaG">
+                        <mat-spinner *ngIf="loadingG" color="warn" [diameter]="40"></mat-spinner>
+                        <tr *ngIf="!loadingG">
+                          <td colspan="5"> No hay información para mostrar</td>
+                        </tr>
+                      </tbody>
+                  </table>
+        
+              </div>
+
+
+              <!-- CONSULTA INDIVDUAL -->
+              <div *ngIf="selected.value ==1">
+
+                <form  [formGroup]="individualForm">
+                    <table >
+                        <tr>
+                            <td> <b>Trabajador:</b></td>
+                            <td colspan="5"> 
+                                <app-combo-contrutodo style="width: 250px" [servicio]="employeeCallback" [tipoLista]=1
+                                [formControlName]="'employee'" [selectedItemIds]="emp" (codigo)="changeEmployee($event)">
+                                </app-combo-contrutodo>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <b>Útimo acceso:</b></td>
+                            <td> {{ cargaI? tranformDate(repIout.ultimoAcceso) : ''}}</td>
+                            <td> <b>Accesos:</b></td>
+                            <td> {{ cargaI? repIout.accesos : ''}}</td> 
+                            <td> <b>Tiempo de conexión:</b></td>
+                            <td> {{ cargaI? repIout.tiempoConexion : '' }}</td>
+                          
+                        </tr>
+                      </table>
+                </form>
+
+                <br>
+                <!-- boton grafico -->
+                <div class="pull-right">
+                  <div class="row">
+                        <div class="col-md-6">
+                          <button class="btn btn-default" (click)="open()"><i class="fa fa-bar-chart"></i> Ver gráfico</button>
+                        </div>  
+                        <div class="col-md-6">
+                          <button class="btn btn-default" (click)="openfav()"><i class="fa fa-star"></i> Ver favoritos</button>
+                        </div>
+                  </div>
+                </div>
+                <br>
+            
+                <br>
+                <mat-tab-group (selectedIndexChange)="selectedTablei.setValue($event)" [selectedIndex]="selectedTablei.value" 
+                 (click)="loadIndividualTable(emp)">
+                    <mat-tab label="Últimos días (7)">                    
+                    </mat-tab>
+                    <mat-tab  [disabled]="isDisabled" label="Último mes (1)"> 
+                    </mat-tab>
+                    <mat-tab [disabled]="isDisabled" label="Último año (1)"> 
+                    </mat-tab>
+                </mat-tab-group>
+                <br>
+
+                <div class="row">
+                  <div class="col-md-6">
+                      <table  class="table" id=table_doc>
+                          <thead>
+                          <tr>
+                            <th scope="col">Reportes</th>
+                            <th scope="col">Iteraciones</th>   
+                          </tr>
+                          </thead>
+                          <tbody *ngIf="!cargaI2r">
+                              <tr>
+                                <td colspan="5">{{ msjCarga }}</td>
+                              </tr>
+                          </tbody>
+                          <tbody *ngIf="cargaI2r">  
+                            <tr *ngFor="let u of itemHistorialUser">
+                                <td *ngIf="u.flag=='r'" scope="row">{{ u.nombre}}</td>
+                                <td *ngIf="u.flag=='r'">{{ u.iteracion}}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                  </div>
+
+                  <div class="col-md-6">
+                      <table  class="table" id=table_doc>
+                          <thead>
+                          <tr>
+                            <th scope="col">Gestión</th>
+                            <th scope="col">Iteraciones</th>   
+                          </tr>
+                          </thead>
+                          <tbody *ngIf="!cargaI2g">
+                              <tr>
+                                <td colspan="5">{{ msjCarga }}</td>
+                              </tr>
+                          </tbody>
+                          <tbody *ngIf="cargaI2g">  
+                            <tr *ngFor="let u of itemHistorialUser">
+                                <td *ngIf="u.flag=='g'" scope="row">{{ u.nombre}}</td>
+                                <td *ngIf="u.flag=='g'">{{ u.iteracion}}</td>
+                           </tr>
+                          </tbody>
+                        </table>
+                  </div>
+                </div>
+              </div>
+            
+
+            </div>
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

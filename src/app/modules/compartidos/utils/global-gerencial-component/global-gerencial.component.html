@@ -1,0 +1,92 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h3>{{formatogerencial.title}}</h3>
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">{{formatogerencial.sub_title}}</h6>
+          <hr>
+          
+          <div class="row justify-content-center">
+            <div class="col-7">
+              <form class="form-inline" [formGroup]="gerencial">
+                <div class="container">
+                  <div class="row">
+                    <label for="moneda" class="col-1">Moneda:</label>
+                      <div [ngClass]="{
+                        'col-md-5': formatogerencial.grafico , 
+                        'col-md-9': !formatogerencial.grafico }">
+                        <app-combo-contrutodo [servicio]="monedaCallback" [tipoLista]=1 [formControlName]="'moneda'" [selectedItemIds]="monedaC" (codigo)="doUpdate($event)"></app-combo-contrutodo>
+                      </div>
+                      <div *ngIf="formatogerencial.grafico" class="col-md-3">
+                        <button class="btn btn-default" (click)="open()"><i class="fa fa-bar-chart"></i> Ver gráfico</button>
+                      </div>  
+                      <div *ngIf="formatogerencial.grafico" class="col-md-3">
+                        <button class="btn btn-default" (click)="openfav()"><i class="fa fa-star"></i> Ver favoritos</button>
+                      </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <hr>
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                  <mat-tab-group (selectedIndexChange)="selected.setValue($event)" [selectedIndex]="selected.value">
+                      <mat-tab label="Últimos Días (7)">                    
+                      </mat-tab>
+                      <mat-tab label="Últimas Semanas (5)">
+                      </mat-tab>
+                      <mat-tab label="Últimos Meses (12)">
+                      </mat-tab>
+                      <mat-tab label="Últimos Años (10)">
+                      </mat-tab>
+                  </mat-tab-group>
+                  <br>
+                
+                  <table  class="table" id=table_doc>
+                      <thead>
+                      <tr>
+                        <th scope="col"></th>
+                        <th class="right" scope="col">{{formatogerencial.columna1}}</th>
+                        <th class="right" scope="col">{{formatogerencial.columna2}}</th>
+                        <th class="right" scope="col">{{formatogerencial.columna3}}</th>
+                        <th class="right" scope="col">{{formatogerencial.columna4}}</th>
+                      </tr>
+                      </thead>
+                      <tbody *ngIf="carga">
+                          
+                        <tr  *ngFor="let a of array()">
+                          <td class="bold" scope="row">{{a.Dia}}</td>
+                          <td class="right">{{a.Columna1 | mConst}}</td>
+                          <td class="right">{{a.Columna2 | mConst}}</td>
+                          <td class="right">{{a.Columna3 | mConst}}</td>
+                          <td class="right">{{a.Columna4 | mConst}}</td>
+                        </tr>
+                      </tbody>
+                      <tbody *ngIf="!carga">
+                        <mat-spinner *ngIf="loading" color="warn" [diameter]="40"></mat-spinner>
+                        <tr *ngIf="!loading">
+                          <td colspan="5"> Seleccione una moneda</td>
+                        </tr>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                            <th scope="row">Total</th>
+                            <th class="right">{{sum(array(),"Columna1")| mConst}}</th>
+                            <th class="right">{{sum(array(),"Columna2")| mConst}}</th>
+                            <th class="right">{{sum(array(),"Columna3")| mConst}}</th>
+                            <th class="right">{{sum(array(),"Columna4")| mConst}}</th>        
+                        </tr>
+                      </tfoot>
+                    </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
